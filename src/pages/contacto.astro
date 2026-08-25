@@ -1,0 +1,149 @@
+---
+export const prerender = true;
+
+import SiteLayout from "@/layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  title="Contacto — Blumenkron by Medical BK"
+  description="Habla con un asesor de Blumenkron by Medical BK. Cotización rápida de tu Seguro de Gastos Médicos Mayores."
+>
+  <section class="bg-hero-gradient py-16 text-white">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <h1 class="text-4xl font-extrabold md:text-5xl">Hablemos</h1>
+      <p class="text-brand-light mt-3">
+        Un asesor te contactará en las próximas 24 horas.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-16">
+    <div class="grid gap-10 md:grid-cols-5">
+      <div class="space-y-6 md:col-span-2">
+        <div class="shadow-card rounded-2xl border border-slate-200 bg-white p-6">
+          <div class="flex items-center gap-3">
+            <div class="bg-accent-gradient inline-flex h-10 w-10 items-center justify-center rounded-xl text-white">
+              📞
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">
+                Números de contacto
+              </div>
+              <div class="font-bold">(55) 56 693 634</div>
+              <div class="font-bold">(55) 71 554 918</div>
+              <div class="font-bold">(55) 71 556 205</div>
+            </div>
+          </div>
+        </div>
+        <div class="shadow-card rounded-2xl border border-slate-200 bg-white p-6">
+          <div class="flex items-center gap-3">
+            <div class="bg-accent-gradient inline-flex h-10 w-10 items-center justify-center rounded-xl text-white">
+              ✉
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">
+                Email
+              </div>
+              <div class="font-bold">info@blumenkron.com</div>
+            </div>
+          </div>
+        </div>
+        <div class="shadow-card rounded-2xl border border-slate-200 bg-white p-6">
+          <div class="flex items-center gap-3">
+            <div class="bg-accent-gradient inline-flex h-10 w-10 items-center justify-center rounded-xl text-white">
+              📍
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-widest text-slate-500">
+                Oficinas
+              </div>
+              <div class="font-bold">Ciudad de México</div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-navy rounded-2xl p-6 text-white">
+          <div class="text-2xl">💬</div>
+          <h3 class="mt-3 text-lg font-bold">¿Prefieres WhatsApp?</h3>
+          <p class="text-brand-light mt-1 text-sm">
+            Escríbenos y responderemos al instante.
+          </p>
+          <a
+            href="https://wa.me/525571554918"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-accent-gradient mt-4 block w-full rounded-md py-2.5 text-center text-sm font-semibold text-white"
+          >
+            Abrir WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <form
+        name="contacto"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="empresa"
+        action="/contacto?enviado=true"
+        class="shadow-card space-y-5 rounded-3xl border border-slate-200 bg-white p-8 md:col-span-3"
+      >
+        <input type="hidden" name="form-name" value="contacto" />
+        <p class="hidden">
+          <label>No llenar este campo: <input name="empresa" /></label>
+        </p>
+
+        <h2 class="text-2xl font-extrabold">Envíanos un mensaje</h2>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="full_name" class="text-sm font-medium">Nombre completo</label>
+            <input
+              id="full_name"
+              name="full_name"
+              required
+              maxlength="100"
+              class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+            />
+          </div>
+          <div>
+            <label for="phone" class="text-sm font-medium">Teléfono</label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              maxlength="30"
+              class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+            />
+          </div>
+        </div>
+        <div>
+          <label for="email" class="text-sm font-medium">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            maxlength="255"
+            class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+          />
+        </div>
+        <div>
+          <label for="message" class="text-sm font-medium">Mensaje</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            maxlength="1000"
+            rows="5"
+            placeholder="¿Cómo podemos ayudarte?"
+            class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="bg-accent-gradient shadow-brand w-full rounded-md py-3 text-sm font-semibold text-white"
+        >
+          ➤ Enviar mensaje
+        </button>
+      </form>
+    </div>
+  </section>
+</SiteLayout>

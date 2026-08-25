@@ -1,0 +1,257 @@
+---
+export const prerender = true;
+
+import SiteLayout from "@/layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  title="Cotizador GMM — Blumenkron by Medical BK"
+  description="Cotiza tu Seguro de Gastos Médicos Mayores en menos de 2 minutos. Suma asegurada, deducible y coaseguro a tu medida."
+>
+  <section class="bg-hero-gradient py-16 text-white">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <div class="text-4xl">🧮</div>
+      <h1 class="mt-4 text-4xl font-extrabold md:text-5xl">Cotizador GMM</h1>
+      <p class="text-brand-light mt-3">
+        Recibe una estimación personalizada en menos de 2 minutos.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 py-14">
+    {/* Resultado — lo llena src/scripts/cotizador.ts en cliente, oculto por defecto */}
+    <div
+      id="resultado"
+      class="shadow-brand border-brand-blue mb-8 hidden overflow-hidden rounded-3xl border bg-white"
+    >
+      <div class="bg-accent-gradient p-6 text-white">
+        <div class="text-sm uppercase tracking-widest opacity-90">
+          Prima mensual estimada
+        </div>
+        <div class="mt-1 text-5xl font-extrabold">
+          $<span id="resultado-prima">0</span
+          ><span class="text-lg font-semibold opacity-80"> MXN/mes</span>
+        </div>
+      </div>
+      <div class="grid gap-4 p-6 sm:grid-cols-3">
+        <div>
+          <div class="text-xs uppercase text-slate-500">Suma asegurada</div>
+          <div id="resultado-suma" class="text-lg font-bold">—</div>
+        </div>
+        <div>
+          <div class="text-xs uppercase text-slate-500">Deducible</div>
+          <div id="resultado-deducible" class="text-lg font-bold">—</div>
+        </div>
+        <div>
+          <div class="text-xs uppercase text-slate-500">Coaseguro</div>
+          <div id="resultado-coaseguro" class="text-lg font-bold">—</div>
+        </div>
+      </div>
+      <div class="border-t border-slate-200 p-6 text-sm text-slate-500">
+        Un asesor te contactará para presentarte opciones formales de
+        aseguradoras. Este cálculo es orientativo.
+      </div>
+    </div>
+
+    {/*
+      Formulario nativo con mejora progresiva (sin React): funciona sin JS
+      posteando directo a Netlify Forms (name="cotizador"); con JS, además
+      calcula y muestra la prima estimada en pantalla antes de enviar.
+    */}
+    <form
+      id="cotizador-form"
+      name="cotizador"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="empresa"
+      action="/cotizador?enviado=true"
+      class="shadow-card space-y-6 rounded-3xl border border-slate-200 bg-white p-8 md:p-10"
+    >
+      <input type="hidden" name="form-name" value="cotizador" />
+      <p class="hidden">
+        <label>No llenar este campo: <input name="empresa" /></label>
+      </p>
+
+      <h2 class="text-2xl font-extrabold">Datos para tu cotización</h2>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <div>
+          <label for="full_name" class="text-sm font-medium">Nombre completo</label>
+          <input
+            id="full_name"
+            name="full_name"
+            required
+            maxlength="100"
+            class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+          />
+        </div>
+        <div>
+          <label for="email" class="text-sm font-medium">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            maxlength="255"
+            class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+          />
+        </div>
+        <div>
+          <label for="phone" class="text-sm font-medium">Teléfono</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            maxlength="30"
+            class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+          />
+        </div>
+        <div>
+          <label for="postal_code" class="text-sm font-medium">Código postal</label>
+          <input
+            id="postal_code"
+            name="postal_code"
+            maxlength="10"
+            class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+          />
+        </div>
+        <div>
+          <label for="age" class="text-sm font-medium">Edad</label>
+          <input
+            id="age"
+            name="age"
+            type="number"
+            min="0"
+            max="99"
+            required
+            class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+          />
+        </div>
+        <div>
+          <span class="text-sm font-medium">Sexo</span>
+          <div class="mt-2 flex gap-4">
+            <label class="flex items-center gap-2"
+              ><input type="radio" name="sex" value="M" checked /> Masculino</label
+            >
+            <label class="flex items-center gap-2"
+              ><input type="radio" name="sex" value="F" /> Femenino</label
+            >
+          </div>
+        </div>
+        <div>
+          <span class="text-sm font-medium">¿Fumas?</span>
+          <div class="mt-2 flex gap-4">
+            <label class="flex items-center gap-2"
+              ><input type="radio" name="smoker" value="false" checked /> No</label
+            >
+            <label class="flex items-center gap-2"
+              ><input type="radio" name="smoker" value="true" /> Sí</label
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-brand-soft/60 grid gap-4 rounded-2xl p-6 md:grid-cols-3">
+        <div>
+          <label for="suma_asegurada" class="text-sm font-medium">Suma asegurada</label>
+          <select
+            id="suma_asegurada"
+            name="suma_asegurada"
+            class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+          >
+            <option value="1000000">$1,000,000</option>
+            <option value="2000000" selected>$2,000,000</option>
+            <option value="5000000">$5,000,000</option>
+            <option value="10000000">$10,000,000</option>
+            <option value="20000000">$20,000,000</option>
+          </select>
+        </div>
+        <div>
+          <label for="deducible" class="text-sm font-medium">Deducible</label>
+          <select
+            id="deducible"
+            name="deducible"
+            class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+          >
+            <option value="15000">$15,000</option>
+            <option value="30000" selected>$30,000</option>
+            <option value="50000">$50,000</option>
+            <option value="80000">$80,000</option>
+            <option value="120000">$120,000</option>
+          </select>
+        </div>
+        <div>
+          <label for="coaseguro" class="text-sm font-medium">Coaseguro</label>
+          <select
+            id="coaseguro"
+            name="coaseguro"
+            class="mt-1.5 w-full rounded-md border border-slate-300 px-3 py-2"
+          >
+            <option value="0">0%</option>
+            <option value="5">5%</option>
+            <option value="10" selected>10%</option>
+            <option value="20">20%</option>
+          </select>
+        </div>
+      </div>
+
+      {/* La prima estimada viaja también al lead que recibe Netlify Forms */}
+      <input type="hidden" id="prima_estimada" name="prima_estimada" value="" />
+
+      <div class="flex items-start gap-2 rounded-xl bg-slate-50 p-4 text-xs text-slate-500">
+        <span class="text-teal">🛡</span>
+        Tus datos se usan únicamente para preparar tu cotización y contactarte.
+        Nunca los compartimos.
+      </div>
+
+      <button
+        type="submit"
+        class="bg-accent-gradient shadow-brand w-full rounded-md py-3 text-sm font-semibold text-white"
+      >
+        Ver mi cotización →
+      </button>
+    </form>
+  </section>
+
+  <script>
+    import { calcPrima } from "@/lib/pricing";
+
+    const form = document.getElementById("cotizador-form") as HTMLFormElement | null;
+    const resultado = document.getElementById("resultado");
+    const primaInput = document.getElementById(
+      "prima_estimada",
+    ) as HTMLInputElement | null;
+
+    function mostrarPreview() {
+      if (!form || !resultado || !primaInput) return;
+      const data = new FormData(form);
+      const age = Number(data.get("age") ?? 0);
+      const smoker = data.get("smoker") === "true";
+      const suma = Number(data.get("suma_asegurada") ?? 0);
+      const deducible = Number(data.get("deducible") ?? 0);
+      const coaseguro = Number(data.get("coaseguro") ?? 0);
+
+      if (!age || !suma) return;
+
+      const prima = calcPrima({ age, smoker, suma, deducible, coaseguro });
+      primaInput.value = String(prima);
+
+      const primaEl = document.getElementById("resultado-prima");
+      const sumaEl = document.getElementById("resultado-suma");
+      const deducibleEl = document.getElementById("resultado-deducible");
+      const coaseguroEl = document.getElementById("resultado-coaseguro");
+      if (primaEl) primaEl.textContent = prima.toLocaleString("es-MX");
+      if (sumaEl) sumaEl.textContent = `$${suma.toLocaleString("es-MX")}`;
+      if (deducibleEl)
+        deducibleEl.textContent = `$${deducible.toLocaleString("es-MX")}`;
+      if (coaseguroEl) coaseguroEl.textContent = `${coaseguro}%`;
+
+      resultado.classList.remove("hidden");
+      resultado.scrollIntoView({ behavior: "smooth" });
+    }
+
+    form?.addEventListener("change", mostrarPreview);
+    // Calcula un preview inicial con los valores por defecto del form.
+    mostrarPreview();
+  </script>
+</SiteLayout>

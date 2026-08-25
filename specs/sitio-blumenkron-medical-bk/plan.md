@@ -15,6 +15,22 @@
   `astro check` + `astro build` como gate de tipos/compilación.
 - `tailwindcss` fijado en v3 (config-based), no v4.
 
+## 0.1 Corrección: `output: "server"` no genera HTML estático por sí solo
+
+Detectado al implementar T-013 (2026-08-25): con `output: "server"` (Astro
+5), **ninguna página se prerenderiza por defecto** — todas se sirven vía la
+función SSR de Netlify en cada request, y `dist/` no contiene ningún
+`.html`. Eso rompe la premisa de la sección 4 (Netlify Forms escanea HTML
+estático generado en build para detectar `data-netlify="true"`).
+
+**Corrección:** toda página de contenido (no `/api/*`) exporta
+`export const prerender = true;`, lo que activa el modo híbrido de Astro
+(esa página se genera como HTML estático en build; solo `/api/*` sigue
+siendo SSR dinámico vía la función de Netlify). Ya aplicado a
+`index.astro` y `membresias.astro`; toda página nueva (`cotizador.astro`,
+`red-medica.astro`, `nosotros.astro`, `faq.astro`, `contacto.astro`) debe
+incluirlo también.
+
 ## 1. Modelo de datos y migraciones
 
 **No aplica.** Este sitio no tiene base de datos propia (ver restricción

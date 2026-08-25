@@ -20,12 +20,12 @@ su implementación.
   - Hecho cuando: una página de prueba con `SiteLayout` renderiza el header con los 7 links (Inicio, Membresías, Red Médica, Nosotros, Cotizador, FAQ, Contacto) y el footer con los datos de contacto; el menú móvil abre/cierra; `astro check` sin errores.
   - Dependencias: T-001, T-002.
 
-- [ ] **T-004 — Test de la calculadora de prima (debe fallar primero)** `[P]`
+- [x] **T-004 — Test de la calculadora de prima (debe fallar primero)** `[P]`
   - Archivos: `tests/pricing.test.mjs`
   - Hecho cuando: `npm test` corre y este archivo **falla** porque `src/lib/pricing.ts` no existe aún (se pega la salida real del fallo).
   - Dependencias: T-001.
 
-- [ ] **T-005 — Implementar calculadora de prima**
+- [x] **T-005 — Implementar calculadora de prima**
   - Archivos: `src/lib/pricing.ts`
   - Hecho cuando: `npm test` pasa en verde para `tests/pricing.test.mjs`.
   - Dependencias: T-004.
@@ -76,27 +76,27 @@ su implementación.
   - Hecho cuando: `npm run build` exitoso; el botón "Comprar" monta `MembershipCheckout` con el plan elegido y completa un pago de prueba end-to-end.
   - Dependencias: T-012, T-013.
 
-- [ ] **T-014 — Cotizador**
+- [x] **T-014 — Cotizador**
   - Archivos: `src/pages/cotizador.astro`
   - Hecho cuando: `npm run build` exitoso; formulario con los campos de la spec; al enviar calcula la prima con `src/lib/pricing.ts` en cliente, muestra el resultado, y postea a Netlify Forms (`name="cotizador"`) — verificable inspeccionando que `data-netlify="true"` esté presente en el HTML del build.
   - Dependencias: T-003, T-005.
 
-- [ ] **T-015 — Red médica** `[P]`
+- [x] **T-015 — Red médica** `[P]`
   - Archivos: `src/pages/red-medica.astro`
   - Hecho cuando: `npm run build` exitoso; muestra las 6 categorías con su conteo y la distribución por estado de la referencia.
   - Dependencias: T-003.
 
-- [ ] **T-016 — Nosotros** `[P]`
+- [x] **T-016 — Nosotros** `[P]`
   - Archivos: `src/pages/nosotros.astro`
   - Hecho cuando: `npm run build` exitoso; incluye misión (3 puntos), visión, filosofía y los 8 valores de la referencia.
   - Dependencias: T-003.
 
-- [ ] **T-017 — FAQ** `[P]`
+- [x] **T-017 — FAQ** `[P]`
   - Archivos: `src/pages/faq.astro`
   - Hecho cuando: `npm run build` exitoso; 6 preguntas en `<details>/<summary>` nativos (abren/cierran sin JS); CTA final a `/contacto`.
   - Dependencias: T-003.
 
-- [ ] **T-018 — Contacto**
+- [x] **T-018 — Contacto**
   - Archivos: `src/pages/contacto.astro`
   - Hecho cuando: `npm run build` exitoso; datos de contacto (3 teléfonos, email, WhatsApp) y formulario (nombre, email, teléfono, mensaje) que postea a Netlify Forms (`name="contacto"`), verificable igual que T-014.
   - Dependencias: T-003.

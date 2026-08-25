@@ -78,7 +78,7 @@ dependencias nuevas, son consecuencia del stack de arriba):
 | Preview    | `npm run preview` → `netlify dev` (vía `npx netlify-cli`, no se instala como dependencia del proyecto). **Nota:** `astro preview` no funciona con el adapter `@astrojs/netlify` (lo rechaza explícitamente); usar `astro dev` para desarrollo del día a día y `netlify dev` para probar `/api/*` en condiciones cercanas a producción. |
 | Lint       | `npm run lint` → `prettier --check .`                 |
 | Format     | `npm run format` → `prettier --write .`                |
-| Test       | `npm test` → `node --test tests/**/*.test.mjs`        |
+| Test       | `npm test` → `node --test tests/*.test.mjs`           |
 | Deploy     | Push a `main` (vía PR aprobado) → Netlify auto-deploy con `@astrojs/netlify`. Deploy manual de emergencia: `npx netlify-cli deploy --prod` (npx, no se instala como dependencia del proyecto). |
 
 ## Estructura de specs
