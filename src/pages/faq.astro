@@ -1,0 +1,81 @@
+---
+export const prerender = true;
+
+import SiteLayout from "@/layouts/SiteLayout.astro";
+
+const faqs = [
+  {
+    q: "¿Cómo funciona mi membresía?",
+    a: "Al activar tu membresía Medical BK obtienes acceso inmediato a la red de clínicas participantes y a los beneficios de tu plan (consultas, medicamentos, estudios clínicos y más). Solo presenta tu credencial digital desde la app Medical BK en cualquier clínica afiliada.",
+  },
+  {
+    q: "¿Cuánto dura mi membresía?",
+    a: "Las membresías son anuales con cobros mensuales o pago único. Puedes renovarla automáticamente al finalizar tu ciclo y conservar tu antigüedad y beneficios.",
+  },
+  {
+    q: "¿Puedo agregar a mi familia?",
+    a: "Sí. Puedes registrar beneficiarios directos (cónyuge, hijos y padres) desde tu portal. El plan Integral está diseñado especialmente para cobertura familiar.",
+  },
+  {
+    q: "¿Dónde puedo utilizar mis beneficios?",
+    a: "Contamos con más de 116 clínicas participantes en todo México. Consulta el buscador en la sección Red Médica para encontrar la más cercana a ti.",
+  },
+  {
+    q: "¿Qué estudios están incluidos?",
+    a: "Cada plan incluye estudios clínicos básicos (biometría, química sanguínea, general de orina, entre otros). El plan Integral suma descuentos en estudios especializados.",
+  },
+  {
+    q: "¿Cómo puedo renovar mi membresía?",
+    a: "Recibirás una notificación 30 días antes del vencimiento. Puedes renovar directo desde tu portal o contactando a atención al cliente al (55) 71 554 918.",
+  },
+];
+---
+
+<SiteLayout
+  title="Preguntas frecuentes — Blumenkron by Medical BK"
+  description="Resolvemos tus dudas sobre membresías, beneficios, red médica y renovación con Medical BK."
+>
+  <section class="bg-hero-gradient py-20 text-white">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <div class="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-2xl backdrop-blur">
+        ❓
+      </div>
+      <h1 class="mt-4 text-4xl font-extrabold md:text-5xl">
+        Preguntas frecuentes
+      </h1>
+      <p class="text-brand-light mt-3">Resolvemos tus dudas</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 py-16">
+    <div class="space-y-3">
+      {
+        faqs.map((f) => (
+          <details class="shadow-card group rounded-2xl border border-slate-200 bg-white px-5 py-1 open:pb-4">
+            <summary class="cursor-pointer list-none py-4 font-semibold marker:content-none">
+              <span class="flex items-center justify-between gap-4">
+                {f.q}
+                <span class="text-brand-blue shrink-0 transition group-open:rotate-45">
+                  +
+                </span>
+              </span>
+            </summary>
+            <p class="text-slate-600">{f.a}</p>
+          </details>
+        ))
+      }
+    </div>
+
+    <div class="mt-10 rounded-2xl border border-slate-200 bg-brand-soft/50 p-6 text-center">
+      <div class="text-brand-blue mx-auto text-2xl">💬</div>
+      <p class="mt-3 font-semibold">¿No encontraste tu respuesta?</p>
+      <p class="text-sm text-slate-600">Contáctanos, estamos para ayudarte.</p>
+      <a
+        href="/contacto"
+        class="bg-accent-gradient shadow-brand mt-4 inline-block rounded-md px-6 py-3 text-sm font-semibold text-white"
+      >
+        Ir a Contacto
+      </a>
+    </div>
+  </section>
+</SiteLayout>

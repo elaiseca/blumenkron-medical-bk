@@ -1,0 +1,170 @@
+---
+export const prerender = true;
+
+import SiteLayout from "@/layouts/SiteLayout.astro";
+
+const misionPoints = [
+  {
+    icon: "🛡",
+    title: "Reducir el impacto económico",
+    d: "Ofreciendo soluciones que brindan tranquilidad, respaldo y seguridad a las familias.",
+  },
+  {
+    icon: "🤝",
+    title: "Facilitar el acceso",
+    d: "A servicios médicos de primer contacto, estudios clínicos, medicamentos y atención especializada.",
+  },
+  {
+    icon: "🌿",
+    title: "Promover el bienestar",
+    d: "Acompañando a cada familia en cada etapa de su vida con atención humana y cercana.",
+  },
+];
+
+const valores = [
+  { icon: "👥", name: "Humanismo", d: "Ponemos a las personas al centro de todo lo que hacemos." },
+  { icon: "🛡", name: "Confianza", d: "Generamos vínculos de interacción y compromiso." },
+  { icon: "🤝", name: "Honestidad", d: "Actuamos con transparencia y claridad siempre." },
+  { icon: "💡", name: "Innovación", d: "Buscamos mejorar constantemente para ofrecerte lo mejor." },
+  { icon: "🌿", name: "Prevención", d: "Promovemos el cuidado anticipado para una vida más saludable." },
+  { icon: "✦", name: "Accesibilidad", d: "Servicios de calidad al alcance de todas las familias." },
+  { icon: "❤", name: "Cercanía", d: "Estamos cerca de ti cuando más nos necesitas." },
+  { icon: "🤝", name: "Compromiso social", d: "Trabajamos por el bienestar de nuestra comunidad y país." },
+];
+---
+
+<SiteLayout
+  title="Nosotros — Filosofía y Valores | Blumenkron by Medical BK"
+  description="Medical BK Membresías: prevención, cuidado integral y salud al alcance de todas las familias mexicanas."
+>
+  <section class="bg-hero-gradient py-20 text-white">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <div class="text-brand-light text-sm font-semibold uppercase tracking-widest">
+        Filosofía Blumenkron by Medical BK
+      </div>
+      <h1 class="mt-3 text-3xl font-extrabold md:text-5xl">
+        "La salud no debe ser un privilegio, sino una oportunidad al alcance
+        de todos."
+      </h1>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6 py-16 text-center">
+    <div class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-2xl text-white">
+      👥
+    </div>
+    <h2 class="mt-4 text-3xl font-extrabold">¿Quiénes somos?</h2>
+    <p class="mt-6 text-lg text-slate-600">
+      Medical BK Membresías nace con el propósito de acercar servicios
+      médicos de calidad a todas las familias mexicanas a través de un
+      modelo de prevención, accesible y confiable.
+    </p>
+    <p class="mt-4 text-lg font-semibold">
+      Creemos que <span class="text-brand-blue">cuidar tu salud hoy</span> es
+      la mejor decisión para un mañana más tranquilo.
+    </p>
+  </section>
+
+  <section class="bg-brand-soft/60 py-16">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="text-center">
+        <div class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-2xl text-white">
+          🎯
+        </div>
+        <h2 class="mt-4 text-3xl font-extrabold">Nuestra misión</h2>
+        <p class="text-brand-blue mt-2 font-semibold">
+          Comprometidos con tu bienestar
+        </p>
+        <p class="mx-auto mt-4 max-w-2xl text-slate-600">
+          Fomentar una cultura de prevención y cuidado integral que permita a
+          nuestros afiliados tomar decisiones oportunas para mejorar su
+          calidad de vida.
+        </p>
+      </div>
+      <div class="mt-10 grid gap-4 md:grid-cols-3">
+        {
+          misionPoints.map((p) => (
+            <div class="shadow-card rounded-2xl border border-slate-200 bg-white p-6">
+              <div class="bg-accent-gradient inline-flex h-11 w-11 items-center justify-center rounded-xl text-lg text-white">
+                {p.icon}
+              </div>
+              <h3 class="mt-4 text-lg font-bold">{p.title}</h3>
+              <p class="mt-1 text-sm text-slate-600">{p.d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6 py-16 text-center">
+    <div class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-2xl text-white">
+      👁
+    </div>
+    <h2 class="mt-4 text-3xl font-extrabold">Nuestra visión</h2>
+    <p class="text-brand-blue mt-2 font-semibold">
+      Hacia un México más saludable
+    </p>
+    <p class="mt-4 text-slate-600">
+      Ser la empresa líder en salud preventiva y bienestar en México.
+    </p>
+    <p class="mt-3 text-slate-600">
+      Transformar el acceso a servicios médicos mediante un modelo
+      innovador, humano y accesible que impulse una mejor calidad de vida
+      para las familias mexicanas.
+    </p>
+  </section>
+
+  <section class="bg-hero-gradient py-16 text-white">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <div class="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-2xl backdrop-blur">
+        ❤
+      </div>
+      <h2 class="mt-4 text-3xl font-extrabold">
+        Filosofía Blumenkron by Medical BK
+      </h2>
+      <p class="text-brand-light mt-2 text-xl font-semibold">
+        Prevenir siempre será mejor que curar
+      </p>
+      <p class="text-brand-light/90 mt-6">
+        En Medical BK creemos que la prevención es la clave para una vida
+        plena y tranquila.
+      </p>
+      <p class="text-brand-light/90 mt-3">
+        Nuestro compromiso es acompañar a cada familia con soluciones
+        médicas accesibles que les permitan cuidar su salud sin poner en
+        riesgo su economía.
+      </p>
+      <div class="mx-auto mt-8 max-w-2xl rounded-2xl bg-white/10 p-6 backdrop-blur">
+        <p class="text-lg italic">
+          "La salud no debe ser un privilegio, sino una oportunidad al
+          alcance de todos."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-6 py-20">
+    <div class="text-center">
+      <h2 class="text-3xl font-extrabold md:text-4xl">Valores</h2>
+      <p class="mt-2 text-slate-600">Lo que nos distingue</p>
+      <p class="mx-auto mt-4 max-w-2xl text-sm text-slate-600">
+        Nuestros valores son la base de cada decisión y de la relación que
+        construimos con nuestros afiliados.
+      </p>
+    </div>
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+      {
+        valores.map((v) => (
+          <div class="shadow-card hover:shadow-brand rounded-2xl border border-slate-200 bg-white p-6 text-center transition">
+            <div class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-xl text-white">
+              {v.icon}
+            </div>
+            <h3 class="mt-4 text-lg font-bold">{v.name}</h3>
+            <p class="mt-1 text-sm text-slate-600">{v.d}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</SiteLayout>
