@@ -68,11 +68,9 @@ construido sobre el stack fijado en `CLAUDE.md`.
 ### 2. Comparar y elegir una membresía
 1. El visitante entra a `/membresias` y ve las membresías disponibles con
    su precio, público objetivo y una tabla comparativa beneficio por
-   beneficio. **[NEEDS CLARIFICATION: el contenido de referencia muestra 2
-   planes en la página de membresías ("Esencial" y "Integral") pero el FAQ y
-   el modelo de datos de referencia mencionan un tercer plan "Premium". ¿El
-   sitio nuevo debe ofrecer 2 o 3 planes, y con qué beneficios/precio el
-   tercero si aplica?]**
+   beneficio. El sitio ofrece **2 planes: Esencial e Integral** (la mención
+   a un tercer plan "Premium" en el FAQ/modelo de datos de referencia no
+   aplica a este sitio).
 2. El visitante elige un plan y puede:
    - a) Pedir cotización (va al flujo de Cotizador), o
    - b) Comprar la membresía directamente en línea (flujo de Compra).
@@ -83,11 +81,10 @@ construido sobre el stack fijado en `CLAUDE.md`.
 2. Ingresa sus datos de contacto y de pago y confirma la compra.
 3. El sitio confirma si el pago fue exitoso o no, y en caso de éxito
    muestra un mensaje de confirmación con los siguientes pasos (activación
-   de membresía). **[NEEDS CLARIFICATION: ¿el cobro es un pago único anual
-   (como se muestra el precio: "MXN + IVA / año") o una suscripción
-   recurrente mensual? ¿Quién y cómo activa la membresía después del pago —
-   es automático o lo hace el equipo comercial manualmente al recibir la
-   confirmación?]**
+   de membresía). El cobro es un **pago único anual** (coincide con el
+   precio mostrado, "MXN + IVA / año"); no es una suscripción recurrente.
+   La activación de la membresía la realiza el equipo comercial de forma
+   manual al recibir la confirmación de pago, no es automática.
 4. El equipo comercial de BlumenKron se entera de la compra para dar
    seguimiento/activar la membresía.
 
@@ -125,16 +122,19 @@ construido sobre el stack fijado en `CLAUDE.md`.
 2. Al enviar el formulario, ve una confirmación de que su mensaje fue
    recibido y que será contactado en un plazo determinado.
 3. El equipo comercial de BlumenKron recibe este mensaje para dar
-   seguimiento. **[NEEDS CLARIFICATION: para los leads de Cotizador y
-   Contacto, ¿basta con que el equipo comercial los reciba por correo/
-   notificación, o necesitan poder consultarlos después en alguna vista o
-   listado dentro del propio sitio?]**
+   seguimiento. Basta con que lo reciban por **notificación** (p. ej.
+   correo); no se requiere una vista o listado de leads dentro del sitio.
 
-## Preguntas abiertas (bloquean `plan.md` hasta resolverse)
+## Decisiones de producto confirmadas
 
-1. Número y definición final de planes de membresía (¿2 o 3, con qué
-   beneficios/precio?).
-2. Modalidad de cobro de la membresía en Stripe (pago único anual vs.
-   suscripción mensual) y mecanismo de activación tras el pago.
-3. Si los leads de Cotizador/Contacto requieren una vista de consulta
-   dentro del sitio o solo notificación.
+Estas preguntas bloqueaban `plan.md` y fueron resueltas por el dueño del
+proyecto el 2026-08-24:
+
+1. **Planes**: 2 (Esencial e Integral). Sin plan Premium.
+2. **Cobro**: pago único anual vía Stripe. Activación manual por el equipo
+   comercial tras confirmarse el pago.
+3. **Leads**: solo notificación (correo) al equipo comercial. Sin vista de
+   consulta dentro del sitio.
+
+No quedan marcadores `[NEEDS CLARIFICATION]` pendientes. `plan.md` puede
+proceder.
