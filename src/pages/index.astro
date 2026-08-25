@@ -1,12 +1,309 @@
 ---
-// Placeholder temporal para verificar SiteLayout/Header/Footer (T-003).
-// Se reemplaza por la página de inicio real en T-007.
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import { plans, formatMXN } from "@/lib/plans";
+
+const stats = [
+  { n: "116", l: "Clínicas participantes" },
+  { n: "24/7", l: "Atención médica" },
+  { n: "100K+", l: "Familias protegidas" },
+  { n: "4.8★", l: "Reseñas de afiliados" },
+];
+
+const pillars = [
+  {
+    title: "Protección",
+    text: "Para ti y tu familia con coberturas diseñadas a medida.",
+  },
+  {
+    title: "Salud preventiva",
+    text: "Consultas, estudios y check-up anual incluidos.",
+  },
+  {
+    title: "Atención accesible",
+    text: "Red de 116 clínicas participantes en todo el país.",
+  },
+  {
+    title: "Ahorro y respaldo",
+    text: "Ahorro significativo frente al pago de servicios particulares.",
+  },
+];
+
+const planHighlights: Record<(typeof plans)[number]["key"], string[]> = {
+  esencial: [
+    "Consulta general (programada)",
+    "Medicamentos incluidos",
+    "Estudios médicos básicos (Centro de Autorización)",
+    "Orientación médica",
+  ],
+  integral: [
+    "Todo lo del Esencial",
+    "Consultas especializadas: dental, nutricional, psicológica y oftalmológica",
+    "Descuentos en estudios especializados",
+    "Check-up anual",
+  ],
+};
+
+const redMedicaGrid = [14, 11, 20, 10, 14, 7, 11, 15, 14];
+
+const redMedicaCategorias = [
+  "Clínicas y consultorios",
+  "Laboratorios",
+  "Gabinetes de diagnóstico",
+  "Hospitales",
+  "Farmacias",
+  "Telemedicina",
+];
 ---
 
 <SiteLayout
-  title="Blumenkron by Medical BK"
-  description="Verificación temporal de layout (T-003)."
+  title="Blumenkron by Medical BK — Seguros de Gastos Médicos Mayores en México"
+  description="Broker de GMM con red de 116 clínicas en México. Membresías Esencial e Integral. Salud al alcance de todos."
 >
-  <p class="p-10">Placeholder — reemplazado en T-007.</p>
+  {/* HERO */}
+  <section class="bg-hero-gradient relative overflow-hidden text-white">
+    <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 md:grid-cols-2 md:py-28">
+      <div>
+        <span
+          class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium backdrop-blur"
+        >
+          <span class="text-teal">✦</span> Broker de GMM · Salud preventiva · Ahorro
+        </span>
+        <h1 class="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">
+          Cuidamos de ti <span class="text-brand-light">antes de que</span> lo
+          necesites.
+        </h1>
+        <p class="text-brand-light/90 mt-6 max-w-lg text-lg">
+          Salud al alcance de todos. Membresías inteligentes de salud para ti
+          y tu familia, con la red médica más amplia de México y el respaldo
+          de Blumenkron.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href="/cotizador"
+            class="bg-accent-gradient shadow-brand inline-flex items-center rounded-md px-6 py-3 text-sm font-semibold text-white"
+          >
+            Cotizar mi seguro →
+          </a>
+          <a
+            href="/membresias"
+            class="inline-flex items-center rounded-md border border-white/30 bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/20"
+          >
+            Ver membresías
+          </a>
+        </div>
+        <div class="mt-10 grid grid-cols-2 gap-6 md:grid-cols-4">
+          {
+            stats.map((s) => (
+              <div>
+                <div class="text-3xl font-extrabold text-white">{s.n}</div>
+                <div class="text-brand-light/80 text-xs">{s.l}</div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="relative mx-auto">
+        <div
+          class="relative rounded-3xl border border-white/15 bg-white/5 p-10 backdrop-blur-xl"
+        >
+          <div class="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-white/10 text-3xl font-extrabold">
+            BK
+          </div>
+          <div class="mt-6 text-center">
+            <div class="text-3xl font-extrabold">MEDICAL BK</div>
+            <div class="text-brand-light text-xs tracking-[0.35em]">
+              by Blumenkron
+            </div>
+          </div>
+          <div class="mt-8 grid grid-cols-2 gap-3 text-sm">
+            {
+              [
+                "Consultas médicas",
+                "Medicamentos",
+                "Estudios clínicos",
+                "Dental & Óptica",
+              ].map((f) => (
+                <div class="flex items-center gap-2 rounded-lg bg-white/10 px-3 py-2">
+                  <span class="text-teal">✓</span>
+                  {f}
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* PILLARS */}
+  <section class="mx-auto max-w-7xl px-6 py-20">
+    <div class="mx-auto max-w-2xl text-center">
+      <div class="text-brand-blue text-sm font-semibold uppercase tracking-widest">
+        Nuestra propuesta
+      </div>
+      <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">
+        Todo lo que necesitas para vivir tranquilo
+      </h2>
+    </div>
+    <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {
+        pillars.map((p) => (
+          <div class="shadow-card hover:shadow-brand rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-1">
+            <div class="bg-accent-gradient inline-flex h-12 w-12 items-center justify-center rounded-xl text-white">
+              ✦
+            </div>
+            <h3 class="mt-4 text-lg font-bold">{p.title}</h3>
+            <p class="mt-2 text-sm text-slate-600">{p.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* MEMBRESIAS PREVIEW */}
+  <section class="bg-brand-soft/60 py-20">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        <div>
+          <div class="text-brand-blue text-sm font-semibold uppercase tracking-widest">
+            Membresías
+          </div>
+          <h2 class="mt-2 max-w-xl text-3xl font-extrabold md:text-4xl">
+            Elige el plan que se adapta a tu familia
+          </h2>
+        </div>
+        <a href="/membresias" class="text-brand-blue text-sm font-semibold">
+          Comparar todos los beneficios →
+        </a>
+      </div>
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        {
+          plans.map((p) => (
+            <div
+              class={`shadow-card relative overflow-hidden rounded-3xl border bg-white p-8 ${
+                p.featured ? "border-brand-blue shadow-brand scale-[1.02]" : "border-slate-200"
+              }`}
+            >
+              {p.featured && (
+                <span class="bg-accent-gradient absolute right-4 top-4 rounded-full px-3 py-1 text-xs font-semibold text-white">
+                  Más popular
+                </span>
+              )}
+              <div class="bg-accent-gradient inline-block rounded-xl px-4 py-2 text-white">
+                <div class="text-xs uppercase tracking-widest opacity-80">
+                  Plan
+                </div>
+                <div class="text-xl font-extrabold">{p.name}</div>
+              </div>
+              <p class="mt-4 text-sm text-slate-600">{p.tagline}</p>
+              <div class="mt-4 flex items-baseline gap-1">
+                <span class="text-brand-blue text-4xl font-extrabold">
+                  {formatMXN(p.priceMXN)}
+                </span>
+                <span class="text-sm text-slate-500">{p.period}</span>
+              </div>
+              <ul class="mt-6 space-y-2 text-sm">
+                {planHighlights[p.key].map((f) => (
+                  <li class="flex items-start gap-2">
+                    <span class="text-teal mt-0.5">✓</span> {f}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="/cotizador"
+                class="bg-accent-gradient shadow-brand mt-6 block w-full rounded-md py-3 text-center text-sm font-semibold text-white"
+              >
+                Cotizar {p.name}
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* RED MEDICA */}
+  <section class="mx-auto max-w-7xl px-6 py-20">
+    <div class="grid items-center gap-12 md:grid-cols-2">
+      <div>
+        <div class="text-brand-blue text-sm font-semibold uppercase tracking-widest">
+          Red Médica
+        </div>
+        <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">
+          116 clínicas participantes en toda la República
+        </h2>
+        <p class="mt-4 text-slate-600">
+          Consultorios, hospitales, laboratorios clínicos, gabinetes de
+          diagnóstico y farmacias aliadas. Atención cercana estés donde
+          estés.
+        </p>
+        <div class="mt-6 grid grid-cols-2 gap-3 text-sm md:grid-cols-3">
+          {
+            redMedicaCategorias.map((c) => (
+              <div class="bg-brand-soft flex items-center gap-2 rounded-lg px-3 py-2">
+                <span class="text-brand-blue">📍</span> {c}
+              </div>
+            ))
+          }
+        </div>
+        <a
+          href="/red-medica"
+          class="bg-accent-gradient shadow-brand mt-8 inline-block rounded-md px-6 py-3 text-sm font-semibold text-white"
+        >
+          Explorar la red médica
+        </a>
+      </div>
+      <div class="bg-hero-gradient shadow-brand rounded-3xl p-10 text-white">
+        <div class="grid grid-cols-3 gap-4">
+          {
+            redMedicaGrid.map((n) => (
+              <div class="flex aspect-square items-center justify-center rounded-2xl bg-white/10 backdrop-blur">
+                <div class="text-center">
+                  <div class="text-2xl font-extrabold">{n}</div>
+                  <div class="text-brand-light/80 text-[10px] uppercase tracking-widest">
+                    Clínicas
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        <p class="text-brand-light mt-6 text-center text-sm">
+          Distribución nacional aproximada
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* CTA FINAL */}
+  <section class="mx-auto max-w-7xl px-6 pb-20">
+    <div class="bg-navy rounded-3xl p-10 text-white md:p-16">
+      <div class="flex flex-col items-center gap-8 text-center md:flex-row md:text-left">
+        <div class="text-teal shrink-0 text-5xl">⚕</div>
+        <div class="flex-1">
+          <h3 class="text-2xl font-extrabold md:text-3xl">
+            ¿Listo para proteger a tu familia?
+          </h3>
+          <p class="text-brand-light mt-2">
+            Cotiza tu Seguro de Gastos Médicos Mayores en menos de 2 minutos.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="/cotizador"
+            class="bg-accent-gradient shadow-brand rounded-md px-6 py-3 text-sm font-semibold text-white"
+          >
+            Cotizar ahora
+          </a>
+          <a
+            href="/contacto"
+            class="rounded-md border border-white/30 bg-transparent px-6 py-3 text-sm font-semibold text-white hover:bg-white/10"
+          >
+            Hablar con un asesor
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </SiteLayout>
