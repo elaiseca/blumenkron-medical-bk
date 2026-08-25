@@ -65,7 +65,7 @@ su implementación.
   - Hecho cuando: `astro check` sin errores; en `astro preview`, el Payment Element de Stripe se muestra embebido y una tarjeta de prueba (4242 4242 4242 4242) confirma el pago y muestra el estado de éxito.
   - Dependencias: T-010.
 
-- [ ] **T-013 — Página de membresías (comparativo, sin checkout todavía)**
+- [x] **T-013 — Página de membresías (comparativo, sin checkout todavía)**
   - Archivos: `src/pages/membresias.astro`
   - Hecho cuando: `npm run build` exitoso; muestra los 2 planes con precio/tagline y la tabla comparativa completa (10 filas); el botón "Comprar" es un placeholder que enlaza a `/cotizador` (nota visible de "pago en línea próximamente") hasta que exista `MembershipCheckout` (T-012).
   - Dependencias: T-003, T-006.
