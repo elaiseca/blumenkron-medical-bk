@@ -1,0 +1,55 @@
+---
+import Logo from "./Logo.astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-navy mt-20 text-white">
+  <div class="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-4">
+    <div class="md:col-span-2">
+      <Logo variant="light" />
+      <p class="text-brand-light/85 mt-4 max-w-sm text-sm">
+        Broker de Gastos Médicos Mayores, salud preventiva y ahorro. Cuidamos
+        de ti antes de que lo necesites. Salud al alcance de todos.
+      </p>
+      <div
+        class="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-medium"
+      >
+        Respaldo Blumenkron
+      </div>
+    </div>
+
+    <div>
+      <h4 class="text-brand-light mb-4 text-sm font-semibold uppercase tracking-wider">
+        Compañía
+      </h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="/nosotros" class="hover:text-teal">Nosotros</a></li>
+        <li><a href="/membresias" class="hover:text-teal">Membresías</a></li>
+        <li><a href="/red-medica" class="hover:text-teal">Red Médica</a></li>
+        <li><a href="/cotizador" class="hover:text-teal">Cotizador</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="text-brand-light mb-4 text-sm font-semibold uppercase tracking-wider">
+        Contacto
+      </h4>
+      <ul class="space-y-3 text-sm">
+        <li>info@blumenkron.com</li>
+        <li>(55) 56 693 634</li>
+        <li>(55) 71 554 918</li>
+        <li>(55) 71 556 205</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div
+      class="text-brand-light/70 mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-xs md:flex-row"
+    >
+      <span>© {year} Blumenkron by Medical BK. Todos los derechos reservados.</span>
+      <span>Salud hoy · Tranquilidad mañana · Futuro seguro</span>
+    </div>
+  </div>
+</footer>
