@@ -1,0 +1,122 @@
+---
+import SiteLayout from "@/layouts/SiteLayout.astro";
+import { plans, planBenefits, formatMXN } from "@/lib/plans";
+---
+
+<SiteLayout
+  title="Membresías Esencial e Integral — Blumenkron by Medical BK"
+  description="Compara los planes de salud Esencial e Integral. Consultas, medicamentos, especialistas, dental, oftalmología y check-up anual."
+>
+  {/* HERO */}
+  <section class="bg-hero-gradient py-20 text-white">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <div class="text-brand-light text-sm font-semibold uppercase tracking-widest">
+        Membresías Medical BK
+      </div>
+      <h1 class="mt-3 text-4xl font-extrabold md:text-5xl">
+        Planes diseñados para cada etapa de tu vida
+      </h1>
+      <p class="text-brand-light/90 mt-4 text-lg">
+        Elige la protección que mejor se adapta a ti y a tu familia. Sin
+        sorpresas, sin letras chiquitas.
+      </p>
+    </div>
+  </section>
+
+  {/* CARDS */}
+  <section class="mx-auto -mt-10 max-w-5xl px-6">
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        plans.map((p) => (
+          <div
+            class={`shadow-card rounded-3xl border bg-white p-8 ${
+              p.featured
+                ? "border-brand-blue shadow-brand md:-translate-y-4"
+                : "border-slate-200"
+            }`}
+          >
+            {p.featured && (
+              <div class="bg-accent-gradient mb-4 inline-block rounded-full px-3 py-1 text-xs font-semibold text-white">
+                Más popular
+              </div>
+            )}
+            <h3 class="text-2xl font-extrabold">{p.name}</h3>
+            <p class="mt-1 text-sm text-slate-600">{p.tagline}</p>
+            <div class="mt-6 flex items-baseline gap-1">
+              <span class="text-brand-blue text-4xl font-extrabold">
+                {formatMXN(p.priceMXN)}
+              </span>
+              <span class="text-sm text-slate-500">{p.period}</span>
+            </div>
+
+            {/* Placeholder de compra — T-013b lo reemplaza por el
+                checkout embebido de Stripe (MembershipCheckout, T-012) */}
+            <a
+              href="/cotizador"
+              class="bg-accent-gradient shadow-brand mt-6 block w-full rounded-md py-3 text-center text-sm font-semibold text-white"
+            >
+              Comprar {p.name}
+            </a>
+            <p class="mt-2 text-center text-xs text-slate-500">
+              Pago en línea próximamente — por ahora te conectamos con un
+              asesor.
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* COMPARATIVO */}
+  <section class="mx-auto max-w-5xl px-6 py-20">
+    <h2 class="text-center text-3xl font-extrabold md:text-4xl">
+      Comparativo de beneficios
+    </h2>
+    <div class="shadow-card mt-10 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+      <table class="w-full min-w-[560px]">
+        <thead>
+          <tr class="bg-brand-soft">
+            <th class="p-4 text-left text-sm font-semibold">Beneficio</th>
+            {
+              plans.map((p) => (
+                <th
+                  class={`p-4 text-center text-sm font-semibold ${
+                    p.featured ? "bg-brand-blue text-white" : ""
+                  }`}
+                >
+                  {p.name}
+                </th>
+              ))
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            planBenefits.map((row, i) => (
+              <tr class={i % 2 ? "bg-brand-soft/40" : ""}>
+                <td class="p-4 text-sm">{row.label}</td>
+                <td class="p-4 text-center">
+                  {row.esencial ? (
+                    <span class="text-teal">✓</span>
+                  ) : (
+                    <span class="text-slate-300">✕</span>
+                  )}
+                </td>
+                <td class="p-4 text-center">
+                  {row.integral ? (
+                    <span class="text-teal">✓</span>
+                  ) : (
+                    <span class="text-slate-300">✕</span>
+                  )}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-6 text-center text-xs text-slate-500">
+      Precios anuales en pesos mexicanos. IVA no incluido.
+    </p>
+  </section>
+</SiteLayout>

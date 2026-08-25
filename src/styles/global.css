@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Blumenkron by Medical BK — tokens de marca, portados del proyecto de
+   referencia (Lovable). Colores en hex para compatibilidad amplia. */
+:root {
+  --color-navy: #0d1b2a;
+  --color-brand-blue: #1e88e5;
+  --color-teal: #4db6ba;
+  --color-brand-light: #90caf9;
+  --color-brand-soft: #e6eef5;
+
+  --gradient-hero: linear-gradient(
+    135deg,
+    #0d1b2a 0%,
+    #1b3a5c 55%,
+    #2e6da4 100%
+  );
+  --gradient-accent: linear-gradient(135deg, #1e88e5, #4db6ba);
+  --shadow-brand: 0 20px 50px -20px rgba(30, 136, 229, 0.4);
+  --shadow-card: 0 4px 20px -8px rgba(13, 27, 42, 0.15);
+}
+
+@layer base {
+  html,
+  body {
+    background-color: #ffffff;
+    color: var(--color-navy);
+    font-family:
+      "Poppins",
+      ui-sans-serif,
+      system-ui,
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .bg-hero-gradient {
+    background-image: var(--gradient-hero);
+  }
+  .bg-accent-gradient {
+    background-image: var(--gradient-accent);
+  }
+  .shadow-brand {
+    box-shadow: var(--shadow-brand);
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  .text-navy {
+    color: var(--color-navy);
+  }
+  .bg-navy {
+    background-color: var(--color-navy);
+  }
+  .text-teal {
+    color: var(--color-teal);
+  }
+  .bg-teal {
+    background-color: var(--color-teal);
+  }
+  .text-brand-light {
+    color: var(--color-brand-light);
+  }
+  .bg-brand-light {
+    background-color: var(--color-brand-light);
+  }
+  .bg-brand-soft {
+    background-color: var(--color-brand-soft);
+  }
+  .text-brand-blue {
+    color: var(--color-brand-blue);
+  }
+  .bg-brand-blue {
+    background-color: var(--color-brand-blue);
+  }
+  .border-brand-blue {
+    border-color: var(--color-brand-blue);
+  }
+}
