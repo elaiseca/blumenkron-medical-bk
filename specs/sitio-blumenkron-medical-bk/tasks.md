@@ -5,17 +5,17 @@ marcadas `[P]` en el mismo bloque (no comparten archivos ni dependen entre
 sí). Los tests de un criterio de aceptación van como tarea propia ANTES de
 su implementación.
 
-- [ ] **T-001 — Scaffold del proyecto**
+- [x] **T-001 — Scaffold del proyecto**
   - Archivos: `package.json`, `astro.config.mjs`, `tsconfig.json`, `postcss.config.cjs`, `tailwind.config.cjs`, `netlify.toml`, `.env.example`, `public/favicon.svg`
   - Hecho cuando: `npm install` y `npm run build` corren sin error sobre un sitio Astro mínimo.
   - Dependencias: ninguna.
 
-- [ ] **T-002 — Tokens de marca y estilos globales** `[P]`
+- [x] **T-002 — Tokens de marca y estilos globales** `[P]`
   - Archivos: `src/styles/global.css`
   - Hecho cuando: `npm run build` sigue pasando; colores/gradientes de marca (navy, brand-blue, teal, brand-light, brand-soft, `gradient-hero`, `gradient-accent`) definidos y usados en al menos una página de prueba.
   - Dependencias: T-001.
 
-- [ ] **T-003 — Layout y navegación**
+- [x] **T-003 — Layout y navegación**
   - Archivos: `src/layouts/SiteLayout.astro`, `src/components/Header.astro`, `src/components/Footer.astro`, `src/components/Logo.astro`
   - Hecho cuando: una página de prueba con `SiteLayout` renderiza el header con los 7 links (Inicio, Membresías, Red Médica, Nosotros, Cotizador, FAQ, Contacto) y el footer con los datos de contacto; el menú móvil abre/cierra; `astro check` sin errores.
   - Dependencias: T-001, T-002.
@@ -30,12 +30,12 @@ su implementación.
   - Hecho cuando: `npm test` pasa en verde para `tests/pricing.test.mjs`.
   - Dependencias: T-004.
 
-- [ ] **T-006 — Catálogo de planes** `[P]`
+- [x] **T-006 — Catálogo de planes** `[P]`
   - Archivos: `src/lib/plans.ts`
   - Hecho cuando: exporta los 2 planes (Esencial $3,990, Integral $4,990 MXN+IVA/año) con su tagline y las 10 filas de beneficios del comparativo; `astro check` sin errores.
   - Dependencias: T-001.
 
-- [ ] **T-007 — Página de inicio**
+- [x] **T-007 — Página de inicio**
   - Archivos: `src/pages/index.astro`
   - Hecho cuando: `npm run build` exitoso; la página renderiza hero, las 4 cifras (116 clínicas, 24/7, 100K+ familias, 4.8★), los 4 pilares, preview de los 2 planes (usando `src/lib/plans.ts`) con CTA a `/cotizador` y `/membresias`, preview de red médica, y CTA final a `/cotizador` y `/contacto`. Verificación manual: `astro preview` navegado a `/`.
   - Dependencias: T-003, T-006.
