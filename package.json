@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
-    "preview": "astro preview",
+    "preview": "netlify dev",
     "lint": "prettier --check .",
     "format": "prettier --write .",
     "test": "node --test tests/"
