@@ -30,18 +30,21 @@ const pillars = [
   },
 ];
 
+// Corporativo e Integral comparten los mismos beneficios (ver
+// src/lib/plans.ts); el último punto de cada lista es el diferenciador de
+// enfoque, no un beneficio distinto.
 const planHighlights: Record<(typeof plans)[number]["key"], string[]> = {
-  esencial: [
+  corporativo: [
     "Consulta general (programada)",
     "Medicamentos incluidos",
-    "Estudios médicos básicos (Centro de Autorización)",
-    "Orientación médica",
+    "Consultas especializadas: dental, nutricional, psicológica y oftalmológica",
+    "Ideal para empresas y equipos de trabajo",
   ],
   integral: [
-    "Todo lo del Esencial",
+    "Consulta general (programada)",
+    "Medicamentos incluidos",
     "Consultas especializadas: dental, nutricional, psicológica y oftalmológica",
-    "Descuentos en estudios especializados",
-    "Check-up anual",
+    "Ideal para ti y tu familia",
   ],
 };
 
@@ -58,8 +61,8 @@ const redMedicaCategorias = [
 ---
 
 <SiteLayout
-  title="Blumenkron by Medical BK — Seguros de Gastos Médicos Mayores en México"
-  description="Broker de GMM con red de 116 clínicas en México. Membresías Esencial e Integral. Salud al alcance de todos."
+  title="Medical BK by Blumenkron — Seguros de Gastos Médicos Mayores en México"
+  description="Broker de GMM con red de 116 clínicas en México. Membresías Corporativo e Integral. Salud al alcance de todos."
 >
   {/* HERO */}
   <section class="bg-hero-gradient relative overflow-hidden text-white">
