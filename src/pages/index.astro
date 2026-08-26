@@ -3,6 +3,8 @@ export const prerender = true;
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import { plans, formatMXN } from "@/lib/plans";
+import MexicoMap from "@/components/MexicoMap.astro";
+import { icon } from "@/lib/icons";
 
 const stats = [
   { n: "116", l: "Clínicas participantes" },
@@ -15,37 +17,42 @@ const pillars = [
   {
     title: "Protección",
     text: "Para ti y tu familia con coberturas diseñadas a medida.",
+    icon: icon("shield-check"),
   },
   {
     title: "Salud preventiva",
     text: "Consultas, estudios y check-up anual incluidos.",
+    icon: icon("heart-pulse"),
   },
   {
     title: "Atención accesible",
     text: "Red de 116 clínicas participantes en todo el país.",
+    icon: icon("map-pin"),
   },
   {
     title: "Ahorro y respaldo",
     text: "Ahorro significativo frente al pago de servicios particulares.",
+    icon: icon("coin"),
   },
 ];
 
+// Corporativo e Integral comparten los mismos beneficios (ver
+// src/lib/plans.ts); el último punto de cada lista es el diferenciador de
+// enfoque, no un beneficio distinto.
 const planHighlights: Record<(typeof plans)[number]["key"], string[]> = {
-  esencial: [
+  corporativo: [
     "Consulta general (programada)",
     "Medicamentos incluidos",
-    "Estudios médicos básicos (Centro de Autorización)",
-    "Orientación médica",
+    "Consultas especializadas: dental, nutricional, psicológica y oftalmológica",
+    "Ideal para empresas y equipos de trabajo",
   ],
   integral: [
-    "Todo lo del Esencial",
+    "Consulta general (programada)",
+    "Medicamentos incluidos",
     "Consultas especializadas: dental, nutricional, psicológica y oftalmológica",
-    "Descuentos en estudios especializados",
-    "Check-up anual",
+    "Ideal para ti y tu familia",
   ],
 };
-
-const redMedicaGrid = [14, 11, 20, 10, 14, 7, 11, 15, 14];
 
 const redMedicaCategorias = [
   "Clínicas y consultorios",
@@ -58,8 +65,8 @@ const redMedicaCategorias = [
 ---
 
 <SiteLayout
-  title="Blumenkron by Medical BK — Seguros de Gastos Médicos Mayores en México"
-  description="Broker de GMM con red de 116 clínicas en México. Membresías Esencial e Integral. Salud al alcance de todos."
+  title="Medical BK by Blumenkron — Seguros de Gastos Médicos Mayores en México"
+  description="Broker de GMM con red de 116 clínicas en México. Membresías Corporativo e Integral. Salud al alcance de todos."
 >
   {/* HERO */}
   <section class="bg-hero-gradient relative overflow-hidden text-white">
@@ -68,7 +75,8 @@ const redMedicaCategorias = [
         <span
           class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium backdrop-blur"
         >
-          <span class="text-teal">✦</span> Broker de GMM · Salud preventiva · Ahorro
+          <span class="text-teal" set:html={icon("sparkle", 14)} /> Broker de
+          GMM · Salud preventiva · Ahorro
         </span>
         <h1 class="mt-6 text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">
           Cuidamos de ti <span class="text-brand-light">antes de que</span> lo
@@ -134,7 +142,7 @@ const redMedicaCategorias = [
                 "Dental & Óptica",
               ].map((f) => (
                 <div class="flex items-center gap-2 rounded-lg bg-white/10 px-3 py-2">
-                  <span class="text-teal">✓</span>
+                  <span class="text-teal shrink-0" set:html={icon("check-circle", 16)} />
                   {f}
                 </div>
               ))
@@ -159,9 +167,10 @@ const redMedicaCategorias = [
       {
         pillars.map((p) => (
           <div class="shadow-card hover:shadow-brand rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-1">
-            <div class="bg-accent-gradient inline-flex h-12 w-12 items-center justify-center rounded-xl text-white">
-              ✦
-            </div>
+            <div
+              class="bg-accent-gradient inline-flex h-12 w-12 items-center justify-center rounded-xl text-white"
+              set:html={p.icon}
+            />
             <h3 class="mt-4 text-lg font-bold">{p.title}</h3>
             <p class="mt-2 text-sm text-slate-600">{p.text}</p>
           </div>
@@ -215,7 +224,8 @@ const redMedicaCategorias = [
               <ul class="mt-6 space-y-2 text-sm">
                 {planHighlights[p.key].map((f) => (
                   <li class="flex items-start gap-2">
-                    <span class="text-teal mt-0.5">✓</span> {f}
+                    <span class="text-teal mt-0.5 shrink-0" set:html={icon("check-circle", 16)} />
+                    {f}
                   </li>
                 ))}
               </ul>
@@ -251,7 +261,8 @@ const redMedicaCategorias = [
           {
             redMedicaCategorias.map((c) => (
               <div class="bg-brand-soft flex items-center gap-2 rounded-lg px-3 py-2">
-                <span class="text-brand-blue">📍</span> {c}
+                <span class="text-brand-blue shrink-0" set:html={icon("map-pin", 16)} />
+                {c}
               </div>
             ))
           }
@@ -264,23 +275,7 @@ const redMedicaCategorias = [
         </a>
       </div>
       <div class="bg-hero-gradient shadow-brand rounded-3xl p-10 text-white">
-        <div class="grid grid-cols-3 gap-4">
-          {
-            redMedicaGrid.map((n) => (
-              <div class="flex aspect-square items-center justify-center rounded-2xl bg-white/10 backdrop-blur">
-                <div class="text-center">
-                  <div class="text-2xl font-extrabold">{n}</div>
-                  <div class="text-brand-light/80 text-[10px] uppercase tracking-widest">
-                    Clínicas
-                  </div>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-        <p class="text-brand-light mt-6 text-center text-sm">
-          Distribución nacional aproximada
-        </p>
+        <MexicoMap />
       </div>
     </div>
   </section>
@@ -289,7 +284,7 @@ const redMedicaCategorias = [
   <section class="mx-auto max-w-7xl px-6 pb-20">
     <div class="bg-navy rounded-3xl p-10 text-white md:p-16">
       <div class="flex flex-col items-center gap-8 text-center md:flex-row md:text-left">
-        <div class="text-teal shrink-0 text-5xl">⚕</div>
+        <div class="text-teal shrink-0" set:html={icon("medical-cross", 52)} />
         <div class="flex-1">
           <h3 class="text-2xl font-extrabold md:text-3xl">
             ¿Listo para proteger a tu familia?

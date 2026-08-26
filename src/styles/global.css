@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Blumenkron by Medical BK — tokens de marca, portados del proyecto de
+/* Medical BK by Blumenkron — tokens de marca, portados del proyecto de
    referencia (Lovable). Colores en hex para compatibilidad amplia. */
 :root {
   --color-navy: #0d1b2a;

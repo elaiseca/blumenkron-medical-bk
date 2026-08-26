@@ -2,11 +2,12 @@
 export const prerender = true;
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import { icon } from "@/lib/icons";
 ---
 
 <SiteLayout
-  title="Contacto — Blumenkron by Medical BK"
-  description="Habla con un asesor de Blumenkron by Medical BK. Cotización rápida de tu Seguro de Gastos Médicos Mayores."
+  title="Contacto — Medical BK by Blumenkron"
+  description="Habla con un asesor de Medical BK by Blumenkron. Cotización rápida de tu Seguro de Gastos Médicos Mayores."
 >
   <section class="bg-hero-gradient py-16 text-white">
     <div class="mx-auto max-w-4xl px-6 text-center">
@@ -22,9 +23,10 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
       <div class="space-y-6 md:col-span-2">
         <div class="shadow-card rounded-2xl border border-slate-200 bg-white p-6">
           <div class="flex items-center gap-3">
-            <div class="bg-accent-gradient inline-flex h-10 w-10 items-center justify-center rounded-xl text-white">
-              📞
-            </div>
+            <div
+              class="bg-accent-gradient inline-flex h-10 w-10 items-center justify-center rounded-xl text-white"
+              set:html={icon("phone", 18)}
+            />
             <div>
               <div class="text-xs uppercase tracking-widest text-slate-500">
                 Números de contacto
@@ -37,9 +39,10 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
         </div>
         <div class="shadow-card rounded-2xl border border-slate-200 bg-white p-6">
           <div class="flex items-center gap-3">
-            <div class="bg-accent-gradient inline-flex h-10 w-10 items-center justify-center rounded-xl text-white">
-              ✉
-            </div>
+            <div
+              class="bg-accent-gradient inline-flex h-10 w-10 items-center justify-center rounded-xl text-white"
+              set:html={icon("mail", 18)}
+            />
             <div>
               <div class="text-xs uppercase tracking-widest text-slate-500">
                 Email
@@ -50,9 +53,10 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
         </div>
         <div class="shadow-card rounded-2xl border border-slate-200 bg-white p-6">
           <div class="flex items-center gap-3">
-            <div class="bg-accent-gradient inline-flex h-10 w-10 items-center justify-center rounded-xl text-white">
-              📍
-            </div>
+            <div
+              class="bg-accent-gradient inline-flex h-10 w-10 items-center justify-center rounded-xl text-white"
+              set:html={icon("map-pin", 18)}
+            />
             <div>
               <div class="text-xs uppercase tracking-widest text-slate-500">
                 Oficinas
@@ -62,7 +66,7 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
           </div>
         </div>
         <div class="bg-navy rounded-2xl p-6 text-white">
-          <div class="text-2xl">💬</div>
+          <div set:html={icon("message-circle", 26)} />
           <h3 class="mt-3 text-lg font-bold">¿Prefieres WhatsApp?</h3>
           <p class="text-brand-light mt-1 text-sm">
             Escríbenos y responderemos al instante.
@@ -139,9 +143,9 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
         </div>
         <button
           type="submit"
-          class="bg-accent-gradient shadow-brand w-full rounded-md py-3 text-sm font-semibold text-white"
+          class="bg-accent-gradient shadow-brand flex w-full items-center justify-center gap-2 rounded-md py-3 text-sm font-semibold text-white"
         >
-          ➤ Enviar mensaje
+          <span set:html={icon("send", 16)} /> Enviar mensaje
         </button>
       </form>
     </div>

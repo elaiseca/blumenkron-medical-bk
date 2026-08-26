@@ -1,0 +1,81 @@
+---
+// Mapa real de México (contornos simplificados desde Natural Earth,
+// dominio público — no requiere atribución, ver src/lib/mexicoStatePaths.ts)
+// coloreado por presencia sí/no (un solo tono, sin escala por cantidad) y
+// con el mismo ícono de pin del resto del sitio sobre cada estado con
+// clínicas registradas. Datos: src/lib/redMedica.ts.
+import {
+  MEXICO_STATE_PATHS,
+  MEXICO_STATE_CENTROIDS,
+  MEXICO_VIEWBOX,
+} from "@/lib/mexicoStatePaths";
+import { estados, OTROS_ESTADOS_LABEL } from "@/lib/redMedica";
+import { icon, iconInner } from "@/lib/icons";
+
+// El pin (viewBox 24x24) apunta hacia abajo con la punta en (12, 21).
+// Se escala y traslada para que esa punta caiga sobre el centroide.
+const PIN_SCALE = 0.85;
+
+const conPresencia = new Set(
+  estados
+    .filter((e) => e.estado !== OTROS_ESTADOS_LABEL)
+    .map((e) => e.estado),
+);
+const nPorEstado = new Map(estados.map((e) => [e.estado, e.n]));
+
+function titleFor(nombre: string): string {
+  const n = nPorEstado.get(nombre);
+  return n != null ? `${nombre}: ${n} clínicas` : `${nombre}: sin clínicas registradas`;
+}
+
+// Estados con pin al final, para que el marcador quede siempre encima de
+// los contornos vecinos.
+const stateEntries = Object.entries(MEXICO_STATE_PATHS).sort(
+  ([a], [b]) => (conPresencia.has(a) ? 1 : 0) - (conPresencia.has(b) ? 1 : 0),
+);
+---
+
+<svg
+  viewBox={MEXICO_VIEWBOX}
+  class="mx-auto h-auto w-full max-w-md"
+  role="img"
+  aria-label="Mapa de estados con cobertura de la red médica"
+>
+  {
+    stateEntries.map(([nombre, d]) => {
+      const presente = conPresencia.has(nombre);
+      const [cx, cy] = MEXICO_STATE_CENTROIDS[nombre] ?? [0, 0];
+      return (
+        <g>
+          <path
+            d={d}
+            fill={presente ? "#4DB6BA" : "rgba(255,255,255,0.08)"}
+            stroke={presente ? "#0D1B2A" : "rgba(255,255,255,0.18)"}
+            stroke-width="1"
+          >
+            <title>{titleFor(nombre)}</title>
+          </path>
+          {presente && (
+            <g
+              transform={`translate(${cx - 12 * PIN_SCALE}, ${cy - 21 * PIN_SCALE}) scale(${PIN_SCALE})`}
+              fill="white"
+              stroke="#0D1B2A"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              set:html={iconInner("map-pin")}
+            />
+          )}
+        </g>
+      );
+    })
+  }
+</svg>
+
+<div class="mt-4 flex items-center justify-center gap-2 text-xs text-white/80">
+  <span
+    class="bg-teal flex h-4 w-4 items-center justify-center rounded-md text-white"
+    set:html={icon("map-pin", 11)}
+  />
+  Estado con cobertura
+</div>

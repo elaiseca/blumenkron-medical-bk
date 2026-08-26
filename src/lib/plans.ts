@@ -1,16 +1,20 @@
 // Catálogo de membresías — fuente única de precio y beneficios para todo el
 // front (preview en inicio, comparativo en /membresias, cotizador).
 //
+// Corporativo e Integral comparten exactamente los mismos beneficios; la
+// única diferencia es el público al que están dirigidos (empresas/equipos
+// de trabajo vs. personas y familias) — ver `tagline`.
+//
 // El monto que realmente se cobra en Stripe (en centavos de MXN) vive en las
-// variables de entorno PLAN_ESENCIAL_PRICE_MXN / PLAN_INTEGRAL_PRICE_MXN
+// variables de entorno PLAN_CORPORATIVO_PRICE_MXN / PLAN_INTEGRAL_PRICE_MXN
 // (ver .env.example) y se valida server-side en T-010 — el `priceMXN` de
 // aquí es solo para mostrarlo en pantalla.
 
-export type PlanKey = "esencial" | "integral";
+export type PlanKey = "corporativo" | "integral";
 
 export interface PlanBenefit {
   label: string;
-  esencial: boolean;
+  corporativo: boolean;
   integral: boolean;
 }
 
@@ -25,9 +29,9 @@ export interface Plan {
 
 export const plans: Plan[] = [
   {
-    key: "esencial",
-    name: "Esencial",
-    tagline: "Empieza a cuidar tu salud",
+    key: "corporativo",
+    name: "Corporativo",
+    tagline: "Ideal para empresas y equipos de trabajo",
     priceMXN: 3990,
     period: "MXN + IVA / año",
     featured: false,
@@ -35,44 +39,45 @@ export const plans: Plan[] = [
   {
     key: "integral",
     name: "Integral",
-    tagline: "Más beneficios para ti y tu familia",
+    tagline: "Ideal para ti y tu familia",
     priceMXN: 4990,
     period: "MXN + IVA / año",
     featured: true,
   },
 ];
 
+// Corporativo e Integral incluyen los mismos 10 beneficios.
 export const planBenefits: PlanBenefit[] = [
-  { label: "Consulta general (programada)", esencial: true, integral: true },
-  { label: "Medicamentos incluidos", esencial: true, integral: true },
+  { label: "Consulta general (programada)", corporativo: true, integral: true },
+  { label: "Medicamentos incluidos", corporativo: true, integral: true },
   {
     label: "Estudios médicos básicos (Centro de Autorización)",
-    esencial: true,
+    corporativo: true,
     integral: true,
   },
-  { label: "Orientación médica", esencial: true, integral: true },
-  { label: "Consulta especializada dental", esencial: false, integral: true },
+  { label: "Orientación médica", corporativo: true, integral: true },
+  { label: "Consulta especializada dental", corporativo: true, integral: true },
   {
     label: "Consulta especializada nutricional",
-    esencial: false,
+    corporativo: true,
     integral: true,
   },
   {
     label: "Consulta especializada psicológica",
-    esencial: false,
+    corporativo: true,
     integral: true,
   },
   {
     label: "Consulta especializada oftalmológica",
-    esencial: false,
+    corporativo: true,
     integral: true,
   },
   {
     label: "Descuentos en estudios especializados",
-    esencial: false,
+    corporativo: true,
     integral: true,
   },
-  { label: "Check-up anual", esencial: false, integral: true },
+  { label: "Check-up anual", corporativo: true, integral: true },
 ];
 
 export function formatMXN(amount: number): string {
