@@ -3,6 +3,7 @@ export const prerender = true;
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import { plans, formatMXN } from "@/lib/plans";
+import MexicoMap from "@/components/MexicoMap.astro";
 
 const stats = [
   { n: "116", l: "Clínicas participantes" },
@@ -47,8 +48,6 @@ const planHighlights: Record<(typeof plans)[number]["key"], string[]> = {
     "Ideal para ti y tu familia",
   ],
 };
-
-const redMedicaGrid = [14, 11, 20, 10, 14, 7, 11, 15, 14];
 
 const redMedicaCategorias = [
   "Clínicas y consultorios",
@@ -267,23 +266,7 @@ const redMedicaCategorias = [
         </a>
       </div>
       <div class="bg-hero-gradient shadow-brand rounded-3xl p-10 text-white">
-        <div class="grid grid-cols-3 gap-4">
-          {
-            redMedicaGrid.map((n) => (
-              <div class="flex aspect-square items-center justify-center rounded-2xl bg-white/10 backdrop-blur">
-                <div class="text-center">
-                  <div class="text-2xl font-extrabold">{n}</div>
-                  <div class="text-brand-light/80 text-[10px] uppercase tracking-widest">
-                    Clínicas
-                  </div>
-                </div>
-              </div>
-            ))
-          }
-        </div>
-        <p class="text-brand-light mt-6 text-center text-sm">
-          Distribución nacional aproximada
-        </p>
+        <MexicoMap />
       </div>
     </div>
   </section>

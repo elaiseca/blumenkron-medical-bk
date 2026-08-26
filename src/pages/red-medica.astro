@@ -2,6 +2,7 @@
 export const prerender = true;
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import { estados } from "@/lib/redMedica";
 
 const categorias = [
   { icon: "🏥", name: "Clínicas y consultorios", count: "52" },
@@ -10,21 +11,6 @@ const categorias = [
   { icon: "🏨", name: "Hospitales", count: "14" },
   { icon: "💊", name: "Farmacias aliadas", count: "8" },
   { icon: "📹", name: "Telemedicina", count: "24/7", note: "Servicio" },
-];
-
-const estados = [
-  { estado: "Ciudad de México", n: 20 },
-  { estado: "Estado de México", n: 14 },
-  { estado: "Jalisco", n: 11 },
-  { estado: "Nuevo León", n: 10 },
-  { estado: "Puebla", n: 7 },
-  { estado: "Querétaro", n: 6 },
-  { estado: "Yucatán", n: 5 },
-  { estado: "Guanajuato", n: 5 },
-  { estado: "Veracruz", n: 5 },
-  { estado: "Chihuahua", n: 4 },
-  { estado: "Baja California", n: 4 },
-  { estado: "Otros estados", n: 25 },
 ];
 ---
 
