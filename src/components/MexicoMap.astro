@@ -1,14 +1,14 @@
 ---
-// Mapa esquemático (tile grid) de cobertura por estado — no es un mapa
-// geográfico real, así que no depende de ningún asset con licencia externa
-// (ver src/lib/mexicoStateGrid.ts). Los estados con clínicas registradas se
-// marcan con un pin en un solo tono; el resto queda neutro. No representa
-// nivel de cobertura, solo presencia sí/no (ver src/lib/redMedica.ts).
+// Mapa real de México (contornos simplificados desde Natural Earth,
+// dominio público — no requiere atribución, ver src/lib/mexicoStatePaths.ts)
+// coloreado por presencia sí/no (un solo tono, sin escala por cantidad) y
+// con un pin 📍 sobre cada estado con clínicas registradas, igual que en
+// la lista de /red-medica. Datos: src/lib/redMedica.ts.
 import {
-  MEXICO_STATE_GRID,
-  MEXICO_GRID_COLS,
-  MEXICO_GRID_ROWS,
-} from "@/lib/mexicoStateGrid";
+  MEXICO_STATE_PATHS,
+  MEXICO_STATE_CENTROIDS,
+  MEXICO_VIEWBOX,
+} from "@/lib/mexicoStatePaths";
 import { estados, OTROS_ESTADOS_LABEL } from "@/lib/redMedica";
 
 const conPresencia = new Set(
@@ -17,41 +17,55 @@ const conPresencia = new Set(
     .map((e) => e.estado),
 );
 const nPorEstado = new Map(estados.map((e) => [e.estado, e.n]));
+
+function titleFor(nombre: string): string {
+  const n = nPorEstado.get(nombre);
+  return n != null ? `${nombre}: ${n} clínicas` : `${nombre}: sin clínicas registradas`;
+}
+
+// Estados con pin al final, para que el marcador quede siempre encima de
+// los contornos vecinos.
+const stateEntries = Object.entries(MEXICO_STATE_PATHS).sort(
+  ([a], [b]) => (conPresencia.has(a) ? 1 : 0) - (conPresencia.has(b) ? 1 : 0),
+);
 ---
 
-<div
-  class="mx-auto grid w-full max-w-md gap-1.5"
-  style={`grid-template-columns: repeat(${MEXICO_GRID_COLS}, minmax(0, 1fr)); grid-template-rows: repeat(${MEXICO_GRID_ROWS}, minmax(0, 1fr));`}
+<svg
+  viewBox={MEXICO_VIEWBOX}
+  class="mx-auto h-auto w-full max-w-md"
   role="img"
-  aria-label="Mapa esquemático de estados con cobertura de la red médica"
+  aria-label="Mapa de estados con cobertura de la red médica"
 >
   {
-    Object.entries(MEXICO_STATE_GRID).map(([nombre, [col, row]]) => {
+    stateEntries.map(([nombre, d]) => {
       const presente = conPresencia.has(nombre);
-      const n = nPorEstado.get(nombre);
-      const title = presente
-        ? `${nombre}: ${n} clínicas`
-        : `${nombre}: sin clínicas registradas`;
+      const [cx, cy] = MEXICO_STATE_CENTROIDS[nombre] ?? [0, 0];
       return (
-        <div
-          class="flex aspect-square items-center justify-center rounded-md"
-          style={`grid-column: ${col + 1}; grid-row: ${row + 1};`}
-        >
-          <div
-            title={title}
-            class={
-              presente
-                ? "flex h-full w-full items-center justify-center rounded-md bg-teal text-white"
-                : "h-full w-full rounded-md bg-white/10"
-            }
+        <g>
+          <path
+            d={d}
+            fill={presente ? "#4DB6BA" : "rgba(255,255,255,0.08)"}
+            stroke={presente ? "#0D1B2A" : "rgba(255,255,255,0.18)"}
+            stroke-width="1"
           >
-            {presente && <span class="text-[10px] leading-none sm:text-xs">📍</span>}
-          </div>
-        </div>
+            <title>{titleFor(nombre)}</title>
+          </path>
+          {presente && (
+            <text
+              x={cx}
+              y={cy}
+              text-anchor="middle"
+              dominant-baseline="middle"
+              font-size="16"
+            >
+              📍
+            </text>
+          )}
+        </g>
       );
     })
   }
-</div>
+</svg>
 
 <div class="mt-4 flex items-center justify-center gap-2 text-xs text-white/80">
   <span class="bg-teal flex h-4 w-4 items-center justify-center rounded-md text-[9px]">
