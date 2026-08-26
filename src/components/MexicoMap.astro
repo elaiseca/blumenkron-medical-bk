@@ -1,100 +1,61 @@
 ---
-// Mapa coroplético de cobertura por estado. Referencial: solo usamos los
-// datos por estado que tenemos (ver src/lib/redMedica.ts); el resto de la
-// red se agrega en "Otros estados" en vez de inventar un desglose exacto.
-//
-// Mapa base: "Blank map of Mexico with states names.svg" — Wikimedia
-// Commons, CC BY-SA 3.0 (ver src/lib/mexicoStatePaths.ts para la fuente y
-// la licencia completa). Se muestra el crédito abajo del mapa.
-import { MEXICO_STATE_PATHS, MEXICO_VIEWBOX } from "@/lib/mexicoStatePaths";
-import { estados, OTROS_ESTADOS_LABEL, totalClinicas } from "@/lib/redMedica";
+// Mapa esquemático (tile grid) de cobertura por estado — no es un mapa
+// geográfico real, así que no depende de ningún asset con licencia externa
+// (ver src/lib/mexicoStateGrid.ts). Los estados con clínicas registradas se
+// marcan con un pin en un solo tono; el resto queda neutro. No representa
+// nivel de cobertura, solo presencia sí/no (ver src/lib/redMedica.ts).
+import {
+  MEXICO_STATE_GRID,
+  MEXICO_GRID_COLS,
+  MEXICO_GRID_ROWS,
+} from "@/lib/mexicoStateGrid";
+import { estados, OTROS_ESTADOS_LABEL } from "@/lib/redMedica";
 
-const conocidos = estados.filter((e) => e.estado !== OTROS_ESTADOS_LABEL);
-const dataByName = new Map(conocidos.map((e) => [e.estado, e.n]));
-const valores = conocidos.map((e) => e.n);
-const min = Math.min(...valores);
-const max = Math.max(...valores);
-
-const otrosN = estados.find((e) => e.estado === OTROS_ESTADOS_LABEL)?.n ?? 0;
-
-const OTROS_FILL = "#3A5A78"; // gris-azulado neutro: "cobertura agregada, sin desglose"
-const SCALE_FROM = { r: 0xbb, g: 0xdc, b: 0xfb }; // tinte claro de brand-blue
-const SCALE_TO = { r: 0x1e, g: 0x88, b: 0xe5 }; // brand-blue
-
-function fillFor(nombre: string): string {
-  const n = dataByName.get(nombre);
-  if (n == null) return OTROS_FILL;
-  const t = max === min ? 1 : (n - min) / (max - min);
-  const r = Math.round(SCALE_FROM.r + (SCALE_TO.r - SCALE_FROM.r) * t);
-  const g = Math.round(SCALE_FROM.g + (SCALE_TO.g - SCALE_FROM.g) * t);
-  const b = Math.round(SCALE_FROM.b + (SCALE_TO.b - SCALE_FROM.b) * t);
-  return `rgb(${r}, ${g}, ${b})`;
-}
-
-function titleFor(nombre: string): string {
-  const n = dataByName.get(nombre);
-  if (n == null) {
-    return `${nombre}: parte de "Otros estados" (${otrosN} clínicas en total, sin desglose)`;
-  }
-  return `${nombre}: ${n} clínicas`;
-}
-
-const stateEntries = Object.entries(MEXICO_STATE_PATHS).sort(
-  ([a], [b]) => (dataByName.has(a) ? 0 : 1) - (dataByName.has(b) ? 0 : 1),
+const conPresencia = new Set(
+  estados
+    .filter((e) => e.estado !== OTROS_ESTADOS_LABEL)
+    .map((e) => e.estado),
 );
+const nPorEstado = new Map(estados.map((e) => [e.estado, e.n]));
 ---
 
-<div>
-  <div class="text-center">
-    <div class="text-4xl font-extrabold text-white">{totalClinicas}</div>
-    <div class="text-brand-light text-xs uppercase tracking-widest">
-      Clínicas participantes en total
-    </div>
-  </div>
+<div
+  class="mx-auto grid w-full max-w-md gap-1.5"
+  style={`grid-template-columns: repeat(${MEXICO_GRID_COLS}, minmax(0, 1fr)); grid-template-rows: repeat(${MEXICO_GRID_ROWS}, minmax(0, 1fr));`}
+  role="img"
+  aria-label="Mapa esquemático de estados con cobertura de la red médica"
+>
+  {
+    Object.entries(MEXICO_STATE_GRID).map(([nombre, [col, row]]) => {
+      const presente = conPresencia.has(nombre);
+      const n = nPorEstado.get(nombre);
+      const title = presente
+        ? `${nombre}: ${n} clínicas`
+        : `${nombre}: sin clínicas registradas`;
+      return (
+        <div
+          class="flex aspect-square items-center justify-center rounded-md"
+          style={`grid-column: ${col + 1}; grid-row: ${row + 1};`}
+        >
+          <div
+            title={title}
+            class={
+              presente
+                ? "flex h-full w-full items-center justify-center rounded-md bg-teal text-white"
+                : "h-full w-full rounded-md bg-white/10"
+            }
+          >
+            {presente && <span class="text-[10px] leading-none sm:text-xs">📍</span>}
+          </div>
+        </div>
+      );
+    })
+  }
+</div>
 
-  <svg
-    viewBox={MEXICO_VIEWBOX}
-    class="mx-auto mt-4 h-auto w-full max-w-md"
-    role="img"
-    aria-label={`Mapa de cobertura de la red médica por estado. ${totalClinicas} clínicas participantes en total.`}
-  >
-    {
-      stateEntries.map(([nombre, d]) => (
-        <path d={d} fill={fillFor(nombre)} stroke="#0D1B2A" stroke-width="1.1">
-          <title>{titleFor(nombre)}</title>
-        </path>
-      ))
-    }
-  </svg>
-
-  <div class="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-white/90">
-    <div class="flex items-center gap-2">
-      <span class="text-brand-light">Menor</span>
-      <span
-        class="h-3 w-16 rounded-full"
-        style={`background: linear-gradient(90deg, rgb(${SCALE_FROM.r},${SCALE_FROM.g},${SCALE_FROM.b}), rgb(${SCALE_TO.r},${SCALE_TO.g},${SCALE_TO.b}))`}
-      />
-      <span class="text-brand-light">Mayor cobertura</span>
-    </div>
-    <div class="flex items-center gap-2">
-      <span class="h-3 w-3 rounded-full" style={`background:${OTROS_FILL}`} />
-      <span class="text-brand-light">Otros estados (dato agregado)</span>
-    </div>
-  </div>
-
-  <p class="text-brand-light/70 mt-3 text-center text-[11px]">
-    Distribución nacional por estado, para referencia — aún no incluye
-    municipio o dirección exacta.
-  </p>
-  <p class="text-brand-light/50 mt-1 text-center text-[10px]">
-    Mapa base:{" "}
-    <a
-      href="https://commons.wikimedia.org/wiki/File:Blank_map_of_Mexico_with_states_names.svg"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="underline"
-    >
-      Wikimedia Commons
-    </a>, CC BY-SA 3.0.
-  </p>
+<div class="mt-4 flex items-center justify-center gap-2 text-xs text-white/80">
+  <span class="bg-teal flex h-4 w-4 items-center justify-center rounded-md text-[9px]">
+    📍
+  </span>
+  Estado con cobertura
 </div>
