@@ -3,11 +3,12 @@ export const prerender = true;
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import { plans, planBenefits, formatMXN } from "@/lib/plans";
+import { icon } from "@/lib/icons";
 ---
 
 <SiteLayout
-  title="Membresías Esencial e Integral — Blumenkron by Medical BK"
-  description="Compara los planes de salud Esencial e Integral. Consultas, medicamentos, especialistas, dental, oftalmología y check-up anual."
+  title="Membresías Corporativo e Integral — Medical BK by Blumenkron"
+  description="Membresías Corporativo e Integral, con los mismos beneficios: consultas, medicamentos, especialistas, dental, oftalmología y check-up anual."
 >
   {/* HERO */}
   <section class="bg-hero-gradient py-20 text-white">
@@ -74,6 +75,11 @@ import { plans, planBenefits, formatMXN } from "@/lib/plans";
     <h2 class="text-center text-3xl font-extrabold md:text-4xl">
       Comparativo de beneficios
     </h2>
+    <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-600">
+      Corporativo e Integral incluyen exactamente los mismos beneficios — la
+      diferencia es el enfoque: Corporativo para empresas y equipos de
+      trabajo, Integral para ti y tu familia.
+    </p>
     <div class="shadow-card mt-10 overflow-x-auto rounded-2xl border border-slate-200 bg-white">
       <table class="w-full min-w-[560px]">
         <thead>
@@ -98,18 +104,16 @@ import { plans, planBenefits, formatMXN } from "@/lib/plans";
               <tr class={i % 2 ? "bg-brand-soft/40" : ""}>
                 <td class="p-4 text-sm">{row.label}</td>
                 <td class="p-4 text-center">
-                  {row.esencial ? (
-                    <span class="text-teal">✓</span>
-                  ) : (
-                    <span class="text-slate-300">✕</span>
-                  )}
+                  <span
+                    class={row.corporativo ? "inline-block text-teal" : "inline-block text-slate-300"}
+                    set:html={icon(row.corporativo ? "check-circle" : "x-circle", 18)}
+                  />
                 </td>
                 <td class="p-4 text-center">
-                  {row.integral ? (
-                    <span class="text-teal">✓</span>
-                  ) : (
-                    <span class="text-slate-300">✕</span>
-                  )}
+                  <span
+                    class={row.integral ? "inline-block text-teal" : "inline-block text-slate-300"}
+                    set:html={icon(row.integral ? "check-circle" : "x-circle", 18)}
+                  />
                 </td>
               </tr>
             ))

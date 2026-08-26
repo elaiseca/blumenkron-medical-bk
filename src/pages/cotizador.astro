@@ -2,15 +2,16 @@
 export const prerender = true;
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import { icon } from "@/lib/icons";
 ---
 
 <SiteLayout
-  title="Cotizador GMM — Blumenkron by Medical BK"
+  title="Cotizador GMM — Medical BK by Blumenkron"
   description="Cotiza tu Seguro de Gastos Médicos Mayores en menos de 2 minutos. Suma asegurada, deducible y coaseguro a tu medida."
 >
   <section class="bg-hero-gradient py-16 text-white">
     <div class="mx-auto max-w-4xl px-6 text-center">
-      <div class="text-4xl">🧮</div>
+      <div class="flex justify-center" set:html={icon("calculator", 40)} />
       <h1 class="mt-4 text-4xl font-extrabold md:text-5xl">Cotizador GMM</h1>
       <p class="text-brand-light mt-3">
         Recibe una estimación personalizada en menos de 2 minutos.
@@ -199,7 +200,7 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
       <input type="hidden" id="prima_estimada" name="prima_estimada" value="" />
 
       <div class="flex items-start gap-2 rounded-xl bg-slate-50 p-4 text-xs text-slate-500">
-        <span class="text-teal">🛡</span>
+        <span class="text-teal mt-0.5 shrink-0" set:html={icon("shield-check", 16)} />
         Tus datos se usan únicamente para preparar tu cotización y contactarte.
         Nunca los compartimos.
       </div>
