@@ -7,7 +7,22 @@ const textColor = variant === "light" ? "text-white" : "text-navy";
 ---
 
 <span class={`inline-flex items-center gap-2 font-extrabold ${textColor}`}>
-  <img src="/logo.svg" alt="Medical BK" width="32" height="32" class="h-8 w-8" />
+  {
+    variant === "light" ? (
+      <span class="relative inline-flex h-8 w-8 shrink-0">
+        <span class="absolute inset-0 rounded-full bg-white" />
+        <img
+          src="/logo.svg"
+          alt="Medical BK"
+          width="32"
+          height="32"
+          class="relative h-8 w-8"
+        />
+      </span>
+    ) : (
+      <img src="/logo.svg" alt="Medical BK" width="32" height="32" class="h-8 w-8" />
+    )
+  }
   <span class="leading-tight">
     <span class="block text-sm tracking-wide">BLUMENKRON</span>
     <span class="block text-[10px] font-medium tracking-[0.2em] opacity-80"
