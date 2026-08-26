@@ -3,6 +3,7 @@ export const prerender = true;
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import { plans, planBenefits, formatMXN } from "@/lib/plans";
+import { icon } from "@/lib/icons";
 ---
 
 <SiteLayout
@@ -103,18 +104,16 @@ import { plans, planBenefits, formatMXN } from "@/lib/plans";
               <tr class={i % 2 ? "bg-brand-soft/40" : ""}>
                 <td class="p-4 text-sm">{row.label}</td>
                 <td class="p-4 text-center">
-                  {row.corporativo ? (
-                    <span class="text-teal">✓</span>
-                  ) : (
-                    <span class="text-slate-300">✕</span>
-                  )}
+                  <span
+                    class={row.corporativo ? "inline-block text-teal" : "inline-block text-slate-300"}
+                    set:html={icon(row.corporativo ? "check-circle" : "x-circle", 18)}
+                  />
                 </td>
                 <td class="p-4 text-center">
-                  {row.integral ? (
-                    <span class="text-teal">✓</span>
-                  ) : (
-                    <span class="text-slate-300">✕</span>
-                  )}
+                  <span
+                    class={row.integral ? "inline-block text-teal" : "inline-block text-slate-300"}
+                    set:html={icon(row.integral ? "check-circle" : "x-circle", 18)}
+                  />
                 </td>
               </tr>
             ))

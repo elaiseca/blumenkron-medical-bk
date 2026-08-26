@@ -3,14 +3,20 @@ export const prerender = true;
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import { estados } from "@/lib/redMedica";
+import { icon } from "@/lib/icons";
 
 const categorias = [
-  { icon: "🏥", name: "Clínicas y consultorios", count: "52" },
-  { icon: "🧪", name: "Laboratorios clínicos", count: "25" },
-  { icon: "🔬", name: "Gabinetes de diagnóstico", count: "17" },
-  { icon: "🏨", name: "Hospitales", count: "14" },
-  { icon: "💊", name: "Farmacias aliadas", count: "8" },
-  { icon: "📹", name: "Telemedicina", count: "24/7", note: "Servicio" },
+  { icon: icon("building"), name: "Clínicas y consultorios", count: "52" },
+  { icon: icon("flask"), name: "Laboratorios clínicos", count: "25" },
+  { icon: icon("search"), name: "Gabinetes de diagnóstico", count: "17" },
+  { icon: icon("hospital"), name: "Hospitales", count: "14" },
+  { icon: icon("pill"), name: "Farmacias aliadas", count: "8" },
+  {
+    icon: icon("video"),
+    name: "Telemedicina",
+    count: "24/7",
+    note: "Servicio",
+  },
 ];
 ---
 
@@ -38,9 +44,10 @@ const categorias = [
       {
         categorias.map((c) => (
           <div class="shadow-card rounded-2xl border border-slate-200 bg-white p-6">
-            <div class="bg-accent-gradient inline-flex h-12 w-12 items-center justify-center rounded-xl text-xl text-white">
-              {c.icon}
-            </div>
+            <div
+              class="bg-accent-gradient inline-flex h-12 w-12 items-center justify-center rounded-xl text-white"
+              set:html={c.icon}
+            />
             <div class="mt-4 flex items-baseline gap-2">
               <span class="text-brand-blue text-3xl font-extrabold">
                 {c.count}
@@ -62,7 +69,7 @@ const categorias = [
           estados.map((e) => (
             <div class="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3">
               <div class="flex items-center gap-2">
-                <span class="text-brand-blue">📍</span>
+                <span class="text-brand-blue shrink-0" set:html={icon("map-pin", 16)} />
                 <span class="text-sm font-medium">{e.estado}</span>
               </div>
               <span class="text-brand-blue rounded-full bg-brand-soft px-2.5 py-0.5 text-xs font-bold">

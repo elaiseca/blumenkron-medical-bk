@@ -2,34 +2,35 @@
 export const prerender = true;
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
+import { icon } from "@/lib/icons";
 
 const misionPoints = [
   {
-    icon: "🛡",
+    icon: icon("shield-check"),
     title: "Reducir el impacto económico",
     d: "Ofreciendo soluciones que brindan tranquilidad, respaldo y seguridad a las familias.",
   },
   {
-    icon: "🤝",
+    icon: icon("users"),
     title: "Facilitar el acceso",
     d: "A servicios médicos de primer contacto, estudios clínicos, medicamentos y atención especializada.",
   },
   {
-    icon: "🌿",
+    icon: icon("leaf"),
     title: "Promover el bienestar",
     d: "Acompañando a cada familia en cada etapa de su vida con atención humana y cercana.",
   },
 ];
 
 const valores = [
-  { icon: "👥", name: "Humanismo", d: "Ponemos a las personas al centro de todo lo que hacemos." },
-  { icon: "🛡", name: "Confianza", d: "Generamos vínculos de interacción y compromiso." },
-  { icon: "🤝", name: "Honestidad", d: "Actuamos con transparencia y claridad siempre." },
-  { icon: "💡", name: "Innovación", d: "Buscamos mejorar constantemente para ofrecerte lo mejor." },
-  { icon: "🌿", name: "Prevención", d: "Promovemos el cuidado anticipado para una vida más saludable." },
-  { icon: "✦", name: "Accesibilidad", d: "Servicios de calidad al alcance de todas las familias." },
-  { icon: "❤", name: "Cercanía", d: "Estamos cerca de ti cuando más nos necesitas." },
-  { icon: "🤝", name: "Compromiso social", d: "Trabajamos por el bienestar de nuestra comunidad y país." },
+  { icon: icon("users"), name: "Humanismo", d: "Ponemos a las personas al centro de todo lo que hacemos." },
+  { icon: icon("shield-check"), name: "Confianza", d: "Generamos vínculos de interacción y compromiso." },
+  { icon: icon("users"), name: "Honestidad", d: "Actuamos con transparencia y claridad siempre." },
+  { icon: icon("lightbulb"), name: "Innovación", d: "Buscamos mejorar constantemente para ofrecerte lo mejor." },
+  { icon: icon("leaf"), name: "Prevención", d: "Promovemos el cuidado anticipado para una vida más saludable." },
+  { icon: icon("sparkle"), name: "Accesibilidad", d: "Servicios de calidad al alcance de todas las familias." },
+  { icon: icon("heart"), name: "Cercanía", d: "Estamos cerca de ti cuando más nos necesitas." },
+  { icon: icon("users"), name: "Compromiso social", d: "Trabajamos por el bienestar de nuestra comunidad y país." },
 ];
 ---
 
@@ -50,9 +51,10 @@ const valores = [
   </section>
 
   <section class="mx-auto max-w-4xl px-6 py-16 text-center">
-    <div class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-2xl text-white">
-      👥
-    </div>
+    <div
+      class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white"
+      set:html={icon("users", 26)}
+    />
     <h2 class="mt-4 text-3xl font-extrabold">¿Quiénes somos?</h2>
     <p class="mt-6 text-lg text-slate-600">
       Medical BK Membresías nace con el propósito de acercar servicios
@@ -68,9 +70,10 @@ const valores = [
   <section class="bg-brand-soft/60 py-16">
     <div class="mx-auto max-w-6xl px-6">
       <div class="text-center">
-        <div class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-2xl text-white">
-          🎯
-        </div>
+        <div
+          class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white"
+          set:html={icon("target", 26)}
+        />
         <h2 class="mt-4 text-3xl font-extrabold">Nuestra misión</h2>
         <p class="text-brand-blue mt-2 font-semibold">
           Comprometidos con tu bienestar
@@ -85,9 +88,10 @@ const valores = [
         {
           misionPoints.map((p) => (
             <div class="shadow-card rounded-2xl border border-slate-200 bg-white p-6">
-              <div class="bg-accent-gradient inline-flex h-11 w-11 items-center justify-center rounded-xl text-lg text-white">
-                {p.icon}
-              </div>
+              <div
+                class="bg-accent-gradient inline-flex h-11 w-11 items-center justify-center rounded-xl text-white"
+                set:html={p.icon}
+              />
               <h3 class="mt-4 text-lg font-bold">{p.title}</h3>
               <p class="mt-1 text-sm text-slate-600">{p.d}</p>
             </div>
@@ -98,9 +102,10 @@ const valores = [
   </section>
 
   <section class="mx-auto max-w-4xl px-6 py-16 text-center">
-    <div class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-2xl text-white">
-      👁
-    </div>
+    <div
+      class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white"
+      set:html={icon("eye", 26)}
+    />
     <h2 class="mt-4 text-3xl font-extrabold">Nuestra visión</h2>
     <p class="text-brand-blue mt-2 font-semibold">
       Hacia un México más saludable
@@ -117,9 +122,10 @@ const valores = [
 
   <section class="bg-hero-gradient py-16 text-white">
     <div class="mx-auto max-w-4xl px-6 text-center">
-      <div class="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-2xl backdrop-blur">
-        ❤
-      </div>
+      <div
+        class="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 backdrop-blur"
+        set:html={icon("heart", 26)}
+      />
       <h2 class="mt-4 text-3xl font-extrabold">
         Filosofía Medical BK by Blumenkron
       </h2>
@@ -157,9 +163,10 @@ const valores = [
       {
         valores.map((v) => (
           <div class="shadow-card hover:shadow-brand rounded-2xl border border-slate-200 bg-white p-6 text-center transition">
-            <div class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-xl text-white">
-              {v.icon}
-            </div>
+            <div
+              class="bg-accent-gradient mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white"
+              set:html={v.icon}
+            />
             <h3 class="mt-4 text-lg font-bold">{v.name}</h3>
             <p class="mt-1 text-sm text-slate-600">{v.d}</p>
           </div>

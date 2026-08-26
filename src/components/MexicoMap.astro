@@ -2,14 +2,19 @@
 // Mapa real de México (contornos simplificados desde Natural Earth,
 // dominio público — no requiere atribución, ver src/lib/mexicoStatePaths.ts)
 // coloreado por presencia sí/no (un solo tono, sin escala por cantidad) y
-// con un pin 📍 sobre cada estado con clínicas registradas, igual que en
-// la lista de /red-medica. Datos: src/lib/redMedica.ts.
+// con el mismo ícono de pin del resto del sitio sobre cada estado con
+// clínicas registradas. Datos: src/lib/redMedica.ts.
 import {
   MEXICO_STATE_PATHS,
   MEXICO_STATE_CENTROIDS,
   MEXICO_VIEWBOX,
 } from "@/lib/mexicoStatePaths";
 import { estados, OTROS_ESTADOS_LABEL } from "@/lib/redMedica";
+import { icon, iconInner } from "@/lib/icons";
+
+// El pin (viewBox 24x24) apunta hacia abajo con la punta en (12, 21).
+// Se escala y traslada para que esa punta caiga sobre el centroide.
+const PIN_SCALE = 0.85;
 
 const conPresencia = new Set(
   estados
@@ -51,15 +56,15 @@ const stateEntries = Object.entries(MEXICO_STATE_PATHS).sort(
             <title>{titleFor(nombre)}</title>
           </path>
           {presente && (
-            <text
-              x={cx}
-              y={cy}
-              text-anchor="middle"
-              dominant-baseline="middle"
-              font-size="16"
-            >
-              📍
-            </text>
+            <g
+              transform={`translate(${cx - 12 * PIN_SCALE}, ${cy - 21 * PIN_SCALE}) scale(${PIN_SCALE})`}
+              fill="white"
+              stroke="#0D1B2A"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              set:html={iconInner("map-pin")}
+            />
           )}
         </g>
       );
@@ -68,8 +73,9 @@ const stateEntries = Object.entries(MEXICO_STATE_PATHS).sort(
 </svg>
 
 <div class="mt-4 flex items-center justify-center gap-2 text-xs text-white/80">
-  <span class="bg-teal flex h-4 w-4 items-center justify-center rounded-md text-[9px]">
-    📍
-  </span>
+  <span
+    class="bg-teal flex h-4 w-4 items-center justify-center rounded-md text-white"
+    set:html={icon("map-pin", 11)}
+  />
   Estado con cobertura
 </div>
