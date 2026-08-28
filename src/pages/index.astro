@@ -193,16 +193,7 @@ const planHighlights: Record<(typeof plans)[number]["key"], string[]> = {
       <div class="mt-10 grid gap-6 md:grid-cols-2">
         {
           plans.map((p) => (
-            <div
-              class={`shadow-card relative overflow-hidden rounded-3xl border bg-white p-8 ${
-                p.featured ? "border-brand-blue shadow-brand scale-[1.02]" : "border-slate-200"
-              }`}
-            >
-              {p.featured && (
-                <span class="bg-accent-gradient absolute right-4 top-4 rounded-full px-3 py-1 text-xs font-semibold text-white">
-                  Más popular
-                </span>
-              )}
+            <div class="shadow-card relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-8">
               <div class="bg-accent-gradient inline-block rounded-xl px-4 py-2 text-white">
                 <div class="text-xs uppercase tracking-widest opacity-80">
                   Plan
@@ -210,12 +201,23 @@ const planHighlights: Record<(typeof plans)[number]["key"], string[]> = {
                 <div class="text-xl font-extrabold">{p.name}</div>
               </div>
               <p class="mt-4 text-sm text-slate-600">{p.tagline}</p>
-              <div class="mt-4 flex items-baseline gap-1">
-                <span class="text-brand-blue text-4xl font-extrabold">
-                  {formatMXN(p.priceMXN)}
-                </span>
-                <span class="text-sm text-slate-500">{p.period}</span>
-              </div>
+              {p.priceMXN != null ? (
+                <div class="mt-4 flex items-baseline gap-1">
+                  <span class="text-brand-blue text-4xl font-extrabold">
+                    {formatMXN(p.priceMXN)}
+                  </span>
+                  <span class="text-sm text-slate-500">{p.period}</span>
+                </div>
+              ) : (
+                <div class="mt-4">
+                  <span class="text-brand-blue text-xl font-extrabold">
+                    Cotización personalizada
+                  </span>
+                  <p class="text-sm text-slate-500">
+                    Contáctanos para ofrecerte un servicio personalizado.
+                  </p>
+                </div>
+              )}
               <ul class="mt-6 space-y-2 text-sm">
                 {planHighlights[p.key].map((f) => (
                   <li class="flex items-start gap-2">
@@ -228,7 +230,7 @@ const planHighlights: Record<(typeof plans)[number]["key"], string[]> = {
                 href="/cotizador"
                 class="bg-accent-gradient shadow-brand mt-6 block w-full rounded-md py-3 text-center text-sm font-semibold text-white"
               >
-                Cotizar {p.name}
+                {p.priceMXN != null ? `Cotizar ${p.name}` : "Cotiza aquí"}
               </a>
             </div>
           ))

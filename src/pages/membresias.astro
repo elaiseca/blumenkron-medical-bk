@@ -32,40 +32,52 @@ import { servicios } from "@/lib/services";
     <div class="grid gap-6 md:grid-cols-2">
       {
         plans.map((p) => (
-          <div
-            class={`shadow-card rounded-3xl border bg-white p-8 ${
-              p.featured
-                ? "border-brand-blue shadow-brand md:-translate-y-4"
-                : "border-slate-200"
-            }`}
-          >
-            {p.featured && (
-              <div class="bg-accent-gradient mb-4 inline-block rounded-full px-3 py-1 text-xs font-semibold text-white">
-                Más popular
-              </div>
-            )}
+          <div class="shadow-card rounded-3xl border border-slate-200 bg-white p-8">
             <h3 class="text-2xl font-extrabold">{p.name}</h3>
             <p class="mt-1 text-sm text-slate-600">{p.tagline}</p>
-            <div class="mt-6 flex items-baseline gap-1">
-              <span class="text-brand-blue text-4xl font-extrabold">
-                {formatMXN(p.priceMXN)}
-              </span>
-              <span class="text-sm text-slate-500">{p.period}</span>
-            </div>
 
-            {/* Placeholder de compra — T-013b lo reemplaza por el
-                checkout embebido de Stripe (MembershipCheckout, T-012) */}
-            <a
-              href="/cotizador"
-              class="bg-accent-gradient shadow-brand mt-6 block w-full rounded-md py-3 text-center text-sm font-semibold text-white"
-            >
-              Comprar {p.name}
-            </a>
-            <p class="mt-2 text-center text-xs text-slate-500">
-              Pago en línea próximamente — por ahora te conectamos con un
-              asesor. Aceptaremos tarjeta (Visa, Mastercard, American
-              Express), PayPal, transferencia SPEI y meses sin intereses.
-            </p>
+            {p.priceMXN != null ? (
+              <>
+                <div class="mt-6 flex items-baseline gap-1">
+                  <span class="text-brand-blue text-4xl font-extrabold">
+                    {formatMXN(p.priceMXN)}
+                  </span>
+                  <span class="text-sm text-slate-500">{p.period}</span>
+                </div>
+
+                {/* Placeholder de compra — T-013b lo reemplaza por el
+                    checkout embebido de Stripe (MembershipCheckout, T-012) */}
+                <a
+                  href="/cotizador"
+                  class="bg-accent-gradient shadow-brand mt-6 block w-full rounded-md py-3 text-center text-sm font-semibold text-white"
+                >
+                  Comprar {p.name}
+                </a>
+                <p class="mt-2 text-center text-xs text-slate-500">
+                  Pago en línea próximamente — por ahora te conectamos con un
+                  asesor. Aceptaremos tarjeta (Visa, Mastercard, American
+                  Express), PayPal, transferencia SPEI y meses sin intereses.
+                </p>
+              </>
+            ) : (
+              <>
+                <div class="mt-6">
+                  <span class="text-brand-blue text-2xl font-extrabold">
+                    Cotización personalizada
+                  </span>
+                  <p class="mt-1 text-sm text-slate-500">
+                    Contáctanos para ofrecerte un servicio personalizado.
+                  </p>
+                </div>
+
+                <a
+                  href="/cotizador"
+                  class="bg-accent-gradient shadow-brand mt-6 block w-full rounded-md py-3 text-center text-sm font-semibold text-white"
+                >
+                  Cotiza aquí
+                </a>
+              </>
+            )}
           </div>
         ))
       }
@@ -89,13 +101,7 @@ import { servicios } from "@/lib/services";
             <th class="p-4 text-left text-sm font-semibold">Beneficio</th>
             {
               plans.map((p) => (
-                <th
-                  class={`p-4 text-center text-sm font-semibold ${
-                    p.featured ? "bg-brand-blue text-white" : ""
-                  }`}
-                >
-                  {p.name}
-                </th>
+                <th class="p-4 text-center text-sm font-semibold">{p.name}</th>
               ))
             }
           </tr>
@@ -124,7 +130,8 @@ import { servicios } from "@/lib/services";
       </table>
     </div>
     <p class="mt-6 text-center text-xs text-slate-500">
-      Precios anuales en pesos mexicanos. IVA no incluido.
+      Precio de Integral anual en pesos mexicanos, IVA no incluido.
+      Corporativo se cotiza según la cantidad de empleados.
     </p>
   </section>
 
