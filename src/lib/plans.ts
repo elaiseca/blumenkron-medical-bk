@@ -29,15 +29,15 @@ export interface Plan {
   // undefined = cotización personalizada, sin precio fijo (ver Corporativo).
   priceMXN?: number;
   period?: string;
-  featured: boolean;
 }
 
+// Ningún plan se marca como "más popular" — ambos se muestran igual
+// (decisión del dueño del proyecto, 2026-08-28).
 export const plans: Plan[] = [
   {
     key: "corporativo",
     name: "Corporativo",
     tagline: "Ideal para empresas y equipos de trabajo",
-    featured: false,
   },
   {
     key: "integral",
@@ -45,7 +45,6 @@ export const plans: Plan[] = [
     tagline: "Ideal para ti y tu familia",
     priceMXN: 4990,
     period: "MXN + IVA / año",
-    featured: true,
   },
 ];
 
