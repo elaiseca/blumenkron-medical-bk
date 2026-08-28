@@ -1,32 +1,17 @@
 ---
 interface Props {
+  // El logo actual ya es un wordmark completo (texto + marca en un solo
+  // archivo) con degradado de color propio, por lo que se ve bien tanto en
+  // fondo claro (Header) como oscuro (Footer) sin variante. Se conserva la
+  // prop para no tener que tocar cada lugar que ya pasa variant="light|dark".
   variant?: "dark" | "light";
 }
-const { variant = "dark" } = Astro.props;
-const textColor = variant === "light" ? "text-white" : "text-navy";
 ---
 
-<span class={`inline-flex items-center gap-2 font-extrabold ${textColor}`}>
-  {
-    variant === "light" ? (
-      <span class="relative inline-flex h-8 w-8 shrink-0">
-        <span class="absolute inset-0 rounded-full bg-white" />
-        <img
-          src="/logo.svg"
-          alt="Medical BK"
-          width="32"
-          height="32"
-          class="relative h-8 w-8"
-        />
-      </span>
-    ) : (
-      <img src="/logo.svg" alt="Medical BK" width="32" height="32" class="h-8 w-8" />
-    )
-  }
-  <span class="leading-tight">
-    <span class="block text-sm tracking-wide">MEDICAL BK</span>
-    <span class="block text-[10px] font-medium tracking-[0.2em] opacity-80"
-      >by BLUMENKRON</span
-    >
-  </span>
-</span>
+<img
+  src="/logo.png"
+  alt="Medical BK"
+  width="992"
+  height="177"
+  class="h-8 w-auto sm:h-9"
+/>
