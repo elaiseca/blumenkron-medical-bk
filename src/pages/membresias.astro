@@ -46,26 +46,49 @@ import { servicios } from "@/lib/services";
             )}
             <h3 class="text-2xl font-extrabold">{p.name}</h3>
             <p class="mt-1 text-sm text-slate-600">{p.tagline}</p>
-            <div class="mt-6 flex items-baseline gap-1">
-              <span class="text-brand-blue text-4xl font-extrabold">
-                {formatMXN(p.priceMXN)}
-              </span>
-              <span class="text-sm text-slate-500">{p.period}</span>
-            </div>
 
-            {/* Placeholder de compra — T-013b lo reemplaza por el
-                checkout embebido de Stripe (MembershipCheckout, T-012) */}
-            <a
-              href="/cotizador"
-              class="bg-accent-gradient shadow-brand mt-6 block w-full rounded-md py-3 text-center text-sm font-semibold text-white"
-            >
-              Comprar {p.name}
-            </a>
-            <p class="mt-2 text-center text-xs text-slate-500">
-              Pago en línea próximamente — por ahora te conectamos con un
-              asesor. Aceptaremos tarjeta (Visa, Mastercard, American
-              Express), PayPal, transferencia SPEI y meses sin intereses.
-            </p>
+            {p.priceMXN != null ? (
+              <>
+                <div class="mt-6 flex items-baseline gap-1">
+                  <span class="text-brand-blue text-4xl font-extrabold">
+                    {formatMXN(p.priceMXN)}
+                  </span>
+                  <span class="text-sm text-slate-500">{p.period}</span>
+                </div>
+
+                {/* Placeholder de compra — T-013b lo reemplaza por el
+                    checkout embebido de Stripe (MembershipCheckout, T-012) */}
+                <a
+                  href="/cotizador"
+                  class="bg-accent-gradient shadow-brand mt-6 block w-full rounded-md py-3 text-center text-sm font-semibold text-white"
+                >
+                  Comprar {p.name}
+                </a>
+                <p class="mt-2 text-center text-xs text-slate-500">
+                  Pago en línea próximamente — por ahora te conectamos con un
+                  asesor. Aceptaremos tarjeta (Visa, Mastercard, American
+                  Express), PayPal, transferencia SPEI y meses sin intereses.
+                </p>
+              </>
+            ) : (
+              <>
+                <div class="mt-6">
+                  <span class="text-brand-blue text-2xl font-extrabold">
+                    Cotización personalizada
+                  </span>
+                  <p class="mt-1 text-sm text-slate-500">
+                    El costo depende de la cantidad de empleados.
+                  </p>
+                </div>
+
+                <a
+                  href="/cotizador"
+                  class="bg-accent-gradient shadow-brand mt-6 block w-full rounded-md py-3 text-center text-sm font-semibold text-white"
+                >
+                  Cotiza aquí
+                </a>
+              </>
+            )}
           </div>
         ))
       }
@@ -124,7 +147,8 @@ import { servicios } from "@/lib/services";
       </table>
     </div>
     <p class="mt-6 text-center text-xs text-slate-500">
-      Precios anuales en pesos mexicanos. IVA no incluido.
+      Precio de Integral anual en pesos mexicanos, IVA no incluido.
+      Corporativo se cotiza según la cantidad de empleados.
     </p>
   </section>
 

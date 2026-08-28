@@ -5,10 +5,14 @@
 // única diferencia es el público al que están dirigidos (empresas/equipos
 // de trabajo vs. personas y familias) — ver `tagline`.
 //
-// El monto que realmente se cobra en Stripe (en centavos de MXN) vive en las
-// variables de entorno PLAN_CORPORATIVO_PRICE_MXN / PLAN_INTEGRAL_PRICE_MXN
-// (ver .env.example) y se valida server-side en T-010 — el `priceMXN` de
-// aquí es solo para mostrarlo en pantalla.
+// El monto que realmente se cobra en Stripe (en centavos de MXN) vive en la
+// variable de entorno PLAN_INTEGRAL_PRICE_MXN (ver .env.example) y se valida
+// server-side en T-010 — el `priceMXN` de aquí es solo para mostrarlo en
+// pantalla.
+//
+// Corporativo no tiene precio fijo (decisión del dueño del proyecto,
+// 2026-08-28): depende de la cantidad de empleados, así que `priceMXN` y
+// `period` se omiten y el front muestra un botón "Cotiza aquí" en su lugar.
 
 export type PlanKey = "corporativo" | "integral";
 
@@ -22,8 +26,9 @@ export interface Plan {
   key: PlanKey;
   name: string;
   tagline: string;
-  priceMXN: number;
-  period: string;
+  // undefined = cotización personalizada, sin precio fijo (ver Corporativo).
+  priceMXN?: number;
+  period?: string;
   featured: boolean;
 }
 
@@ -32,8 +37,6 @@ export const plans: Plan[] = [
     key: "corporativo",
     name: "Corporativo",
     tagline: "Ideal para empresas y equipos de trabajo",
-    priceMXN: 3990,
-    period: "MXN + IVA / año",
     featured: false,
   },
   {
