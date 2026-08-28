@@ -4,6 +4,7 @@ export const prerender = true;
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import { plans, planBenefits, formatMXN } from "@/lib/plans";
 import { icon } from "@/lib/icons";
+import { servicios } from "@/lib/services";
 ---
 
 <SiteLayout
@@ -62,7 +63,8 @@ import { icon } from "@/lib/icons";
             </a>
             <p class="mt-2 text-center text-xs text-slate-500">
               Pago en línea próximamente — por ahora te conectamos con un
-              asesor.
+              asesor. Aceptaremos tarjeta (Visa, Mastercard, American
+              Express), PayPal, transferencia SPEI y meses sin intereses.
             </p>
           </div>
         ))
@@ -124,5 +126,39 @@ import { icon } from "@/lib/icons";
     <p class="mt-6 text-center text-xs text-slate-500">
       Precios anuales en pesos mexicanos. IVA no incluido.
     </p>
+  </section>
+
+  {/* SERVICIOS Y COBERTURA */}
+  <section class="bg-brand-soft/60 py-20">
+    <div class="mx-auto max-w-4xl px-6">
+      <h2 class="text-center text-3xl font-extrabold md:text-4xl">
+        Descubre todo lo que incluye tu membresía
+      </h2>
+      <p class="mx-auto mt-3 max-w-2xl text-center text-sm text-slate-600">
+        Servicio por servicio, esto es lo que cubre tu membresía Medical BK
+        — igual para Corporativo e Integral.
+      </p>
+      <div class="mt-10 space-y-4">
+        {
+          servicios.map((s) => (
+            <div class="shadow-card flex gap-4 rounded-2xl border border-slate-200 bg-white p-6">
+              <div
+                class="bg-accent-gradient inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-white"
+                set:html={icon(s.icon)}
+              />
+              <div>
+                <h3 class="font-bold">{s.servicio}</h3>
+                <p class="mt-1 text-sm text-slate-600">{s.cobertura}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-6 text-center text-xs text-slate-500">
+        Las cifras y servicios corresponden a la información
+        proporcionada y pueden actualizarse conforme cambie la red o las
+        condiciones de Medical BK.
+      </p>
+    </div>
   </section>
 </SiteLayout>

@@ -5,9 +5,10 @@ import SiteLayout from "@/layouts/SiteLayout.astro";
 import { plans, formatMXN } from "@/lib/plans";
 import MexicoMap from "@/components/MexicoMap.astro";
 import { icon } from "@/lib/icons";
+import { totalClinicas, serviciosRed } from "@/lib/redMedica";
 
 const stats = [
-  { n: "116", l: "Clínicas participantes" },
+  { n: String(totalClinicas), l: "Unidades y sucursales" },
   { n: "24/7", l: "Atención médica" },
   { n: "100K+", l: "Familias protegidas" },
   { n: "4.8★", l: "Reseñas de afiliados" },
@@ -26,7 +27,7 @@ const pillars = [
   },
   {
     title: "Atención accesible",
-    text: "Red de 116 clínicas participantes en todo el país.",
+    text: `Red de ${totalClinicas} unidades y sucursales médicas en todo el país.`,
     icon: icon("map-pin"),
   },
   {
@@ -54,19 +55,11 @@ const planHighlights: Record<(typeof plans)[number]["key"], string[]> = {
   ],
 };
 
-const redMedicaCategorias = [
-  "Clínicas y consultorios",
-  "Laboratorios",
-  "Gabinetes de diagnóstico",
-  "Hospitales",
-  "Farmacias",
-  "Telemedicina",
-];
 ---
 
 <SiteLayout
   title="Medical BK by Blumenkron — Seguros de Gastos Médicos Mayores en México"
-  description="Broker de GMM con red de 116 clínicas en México. Membresías Corporativo e Integral. Salud al alcance de todos."
+  description={`Broker de GMM con red de ${totalClinicas} unidades y sucursales médicas en México. Membresías Corporativo e Integral. Salud al alcance de todos.`}
 >
   {/* HERO */}
   <section class="bg-hero-gradient relative overflow-hidden text-white">
@@ -120,10 +113,10 @@ const redMedicaCategorias = [
           <div class="relative mx-auto flex h-24 w-24 items-center justify-center">
             <div class="absolute inset-0 rounded-full bg-white"></div>
             <img
-              src="/logo.svg"
+              src="/logo-mark.png"
               alt="Medical BK"
-              width="96"
-              height="96"
+              width="307"
+              height="307"
               class="relative h-24 w-24"
             />
           </div>
@@ -250,16 +243,15 @@ const redMedicaCategorias = [
           Red Médica
         </div>
         <h2 class="mt-2 text-3xl font-extrabold md:text-4xl">
-          116 clínicas participantes en toda la República
+          {totalClinicas} unidades y sucursales médicas en toda la República
         </h2>
         <p class="mt-4 text-slate-600">
-          Consultorios, hospitales, laboratorios clínicos, gabinetes de
-          diagnóstico y farmacias aliadas. Atención cercana estés donde
-          estés.
+          Consultas médicas, especialidades, análisis clínicos y orientación
+          telefónica 24/7. Atención cercana estés donde estés.
         </p>
-        <div class="mt-6 grid grid-cols-2 gap-3 text-sm md:grid-cols-3">
+        <div class="mt-6 grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
           {
-            redMedicaCategorias.map((c) => (
+            serviciosRed.map((c) => (
               <div class="bg-brand-soft flex items-center gap-2 rounded-lg px-3 py-2">
                 <span class="text-brand-blue shrink-0" set:html={icon("map-pin", 16)} />
                 {c}

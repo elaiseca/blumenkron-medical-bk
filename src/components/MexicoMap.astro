@@ -9,22 +9,24 @@ import {
   MEXICO_STATE_CENTROIDS,
   MEXICO_VIEWBOX,
 } from "@/lib/mexicoStatePaths";
-import { estados, OTROS_ESTADOS_LABEL } from "@/lib/redMedica";
+import { estados } from "@/lib/redMedica";
 import { icon, iconInner } from "@/lib/icons";
 
 // El pin (viewBox 24x24) apunta hacia abajo con la punta en (12, 21).
 // Se escala y traslada para que esa punta caiga sobre el centroide.
 const PIN_SCALE = 0.85;
 
-const conPresencia = new Set(
-  estados
-    .filter((e) => e.estado !== OTROS_ESTADOS_LABEL)
-    .map((e) => e.estado),
-);
-const nPorEstado = new Map(estados.map((e) => [e.estado, e.n]));
+// El mapa es por estado real: usa mapEstado cuando la fuente lista una
+// ciudad (p. ej. "Tijuana" → Baja California) en vez del nombre del estado.
+const nPorEstadoMapa = new Map<string, number>();
+for (const e of estados) {
+  const key = e.mapEstado ?? e.estado;
+  nPorEstadoMapa.set(key, (nPorEstadoMapa.get(key) ?? 0) + e.n);
+}
+const conPresencia = new Set(nPorEstadoMapa.keys());
 
 function titleFor(nombre: string): string {
-  const n = nPorEstado.get(nombre);
+  const n = nPorEstadoMapa.get(nombre);
   return n != null ? `${nombre}: ${n} clínicas` : `${nombre}: sin clínicas registradas`;
 }
 
