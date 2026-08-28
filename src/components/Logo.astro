@@ -1,32 +1,15 @@
 ---
 interface Props {
+  // El dueño del proyecto proporcionó variantes del logo en distintos
+  // colores (2026-08-28); para el footer (fondo navy oscuro) la versión
+  // con degradado azul se leía apagada, así que se usa la variante con
+  // "MEDICAL" en blanco (conservando la marca "BK+" en su color) cuando
+  // variant="light". El Header sigue usando la versión azul original.
   variant?: "dark" | "light";
 }
 const { variant = "dark" } = Astro.props;
-const textColor = variant === "light" ? "text-white" : "text-navy";
+const src = variant === "light" ? "/logo-white.png" : "/logo.png";
+const [width, height] = variant === "light" ? [1895, 331] : [992, 177];
 ---
 
-<span class={`inline-flex items-center gap-2 font-extrabold ${textColor}`}>
-  {
-    variant === "light" ? (
-      <span class="relative inline-flex h-8 w-8 shrink-0">
-        <span class="absolute inset-0 rounded-full bg-white" />
-        <img
-          src="/logo.svg"
-          alt="Medical BK"
-          width="32"
-          height="32"
-          class="relative h-8 w-8"
-        />
-      </span>
-    ) : (
-      <img src="/logo.svg" alt="Medical BK" width="32" height="32" class="h-8 w-8" />
-    )
-  }
-  <span class="leading-tight">
-    <span class="block text-sm tracking-wide">MEDICAL BK</span>
-    <span class="block text-[10px] font-medium tracking-[0.2em] opacity-80"
-      >by BLUMENKRON</span
-    >
-  </span>
-</span>
+<img src={src} alt="Medical BK" width={width} height={height} class="h-8 w-auto sm:h-9" />
