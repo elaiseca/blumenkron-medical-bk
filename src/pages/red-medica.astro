@@ -2,27 +2,21 @@
 export const prerender = true;
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
-import { estados } from "@/lib/redMedica";
+import { estados, totalClinicas, serviciosRed } from "@/lib/redMedica";
 import { icon } from "@/lib/icons";
 
-const categorias = [
-  { icon: icon("building"), name: "Clínicas y consultorios", count: "52" },
-  { icon: icon("flask"), name: "Laboratorios clínicos", count: "25" },
-  { icon: icon("search"), name: "Gabinetes de diagnóstico", count: "17" },
-  { icon: icon("hospital"), name: "Hospitales", count: "14" },
-  { icon: icon("pill"), name: "Farmacias aliadas", count: "8" },
-  {
-    icon: icon("video"),
-    name: "Telemedicina",
-    count: "24/7",
-    note: "Servicio",
-  },
-];
+const serviciosIconos = [
+  "medical-cross",
+  "heart-pulse",
+  "flask",
+  "phone",
+  "map-pin",
+] as const;
 ---
 
 <SiteLayout
-  title="Red Médica — 116 clínicas en México | Medical BK by Blumenkron"
-  description="Red de 116 clínicas, hospitales, laboratorios, gabinetes de diagnóstico y farmacias aliadas en la República Mexicana."
+  title={`Red Médica — ${totalClinicas} sucursales en México | Medical BK by Blumenkron`}
+  description={`Red de ${totalClinicas} unidades y sucursales médicas en toda la República Mexicana.`}
 >
   <section class="bg-hero-gradient py-20 text-white">
     <div class="mx-auto max-w-4xl px-6 text-center">
@@ -30,7 +24,8 @@ const categorias = [
         Red Médica Nacional
       </div>
       <h1 class="mt-3 text-4xl font-extrabold md:text-5xl">
-        <span class="text-brand-light">116</span> clínicas participantes
+        <span class="text-brand-light">{totalClinicas}</span> unidades y sucursales
+        médicas
       </h1>
       <p class="text-brand-light/90 mt-4 text-lg">
         Atención médica de calidad, cercana y accesible en la República
@@ -40,21 +35,15 @@ const categorias = [
   </section>
 
   <section class="mx-auto max-w-7xl px-6 py-16">
-    <div class="grid gap-4 md:grid-cols-3">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
       {
-        categorias.map((c) => (
+        serviciosRed.map((s, i) => (
           <div class="shadow-card rounded-2xl border border-slate-200 bg-white p-6">
             <div
               class="bg-accent-gradient inline-flex h-12 w-12 items-center justify-center rounded-xl text-white"
-              set:html={c.icon}
+              set:html={icon(serviciosIconos[i])}
             />
-            <div class="mt-4 flex items-baseline gap-2">
-              <span class="text-brand-blue text-3xl font-extrabold">
-                {c.count}
-              </span>
-              <span class="text-sm text-slate-500">{c.note ?? "sedes"}</span>
-            </div>
-            <div class="mt-1 font-semibold">{c.name}</div>
+            <div class="mt-4 font-semibold">{s}</div>
           </div>
         ))
       }

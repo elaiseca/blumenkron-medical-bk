@@ -31,7 +31,10 @@ export type IconName =
   | "medical-cross"
   | "send"
   | "check-circle"
-  | "x-circle";
+  | "x-circle"
+  | "tooth"
+  | "glasses"
+  | "brain";
 
 const PATHS: Record<IconName, string> = {
   "shield-check": `<path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/>`,
@@ -60,6 +63,9 @@ const PATHS: Record<IconName, string> = {
   send: `<path d="M21.5 2.5 11 13"/><path d="M21.5 2.5 15 21.5l-4-8.5-8.5-4 19-6.5Z"/>`,
   "check-circle": `<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/>`,
   "x-circle": `<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>`,
+  tooth: `<path d="M12 4c-2 0-3 1.2-4 1.2S6 4 4.5 4 2 6 2 9c0 2 .8 3.5 1.3 5 .5 1.6.7 6 2.2 6 1.3 0 1-3.5 2-5.5.4-.8.8-1.2 1.5-1.2s1.1.4 1.5 1.2c1 2 .7 5.5 2 5.5 1.5 0 1.7-4.4 2.2-6 .5-1.5 1.3-3 1.3-5 0-3-1.5-5-3-5S14 4 12 4Z"/>`,
+  glasses: `<circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14h4M3 14l1-5c.3-1 1-2 3-2M21 14l-1-5c-.3-1-1-2-3-2"/>`,
+  brain: `<path d="M9 4.5C7 4.5 5.5 6 5.5 8c-1.5.5-2.5 2-2.5 3.5s1 3 2.5 3.5c0 2 1.5 3.5 3.5 3.5"/><path d="M15 4.5c2 0 3.5 1.5 3.5 3.5 1.5.5 2.5 2 2.5 3.5s-1 3-2.5 3.5c0 2-1.5 3.5-3.5 3.5"/><path d="M9 4.5v14M15 4.5v14"/>`,
 };
 
 export function icon(name: IconName, size = 22): string {

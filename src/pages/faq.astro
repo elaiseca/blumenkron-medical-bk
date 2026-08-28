@@ -3,6 +3,7 @@ export const prerender = true;
 
 import SiteLayout from "@/layouts/SiteLayout.astro";
 import { icon } from "@/lib/icons";
+import { totalClinicas } from "@/lib/redMedica";
 
 const faqs = [
   {
@@ -19,7 +20,7 @@ const faqs = [
   },
   {
     q: "¿Dónde puedo utilizar mis beneficios?",
-    a: "Contamos con más de 116 clínicas participantes en todo México. Consulta el buscador en la sección Red Médica para encontrar la más cercana a ti.",
+    a: `Contamos con ${totalClinicas} unidades y sucursales médicas en todo México. Consulta la sección Red Médica para encontrar la más cercana a ti.`,
   },
   {
     q: "¿Qué estudios están incluidos?",
