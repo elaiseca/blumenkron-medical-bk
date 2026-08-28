@@ -1,17 +1,15 @@
 ---
 interface Props {
-  // El logo actual ya es un wordmark completo (texto + marca en un solo
-  // archivo) con degradado de color propio, por lo que se ve bien tanto en
-  // fondo claro (Header) como oscuro (Footer) sin variante. Se conserva la
-  // prop para no tener que tocar cada lugar que ya pasa variant="light|dark".
+  // El dueño del proyecto proporcionó variantes del logo en distintos
+  // colores (2026-08-28); para el footer (fondo navy oscuro) la versión
+  // con degradado azul se leía apagada, así que se usa la variante con
+  // "MEDICAL" en blanco (conservando la marca "BK+" en su color) cuando
+  // variant="light". El Header sigue usando la versión azul original.
   variant?: "dark" | "light";
 }
+const { variant = "dark" } = Astro.props;
+const src = variant === "light" ? "/logo-white.png" : "/logo.png";
+const [width, height] = variant === "light" ? [1895, 331] : [992, 177];
 ---
 
-<img
-  src="/logo.png"
-  alt="Medical BK"
-  width="992"
-  height="177"
-  class="h-8 w-auto sm:h-9"
-/>
+<img src={src} alt="Medical BK" width={width} height={height} class="h-8 w-auto sm:h-9" />
